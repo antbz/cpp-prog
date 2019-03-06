@@ -116,7 +116,7 @@ int ex26() {
             cout << n << endl;
     }
 
-//    cout << "O número é primo!";
+//    cout << "O número é primasss!";
 
     return 0;
 }
