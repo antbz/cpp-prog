@@ -1,0 +1,3 @@
+/home/antonio/FEUP/1_ano/2_sem/PROG/Ficha/1/1_5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/antonio/FEUP/1_ano/2_sem/PROG/Ficha/1/1_5/cmake-build-debug/CMakeFiles/1_5.dir
+/home/antonio/FEUP/1_ano/2_sem/PROG/Ficha/1/1_5/cmake-build-debug/CMakeFiles/edit_cache.dir
