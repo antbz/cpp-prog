@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -77,6 +79,24 @@ int ex2_3() {
         cout << "Result: " << result << endl;
         cin.clear();
     }
+
+    return 0;
+}
+
+int ex2_4() {
+    float peso, custo;
+
+    cout << "Peso da mercadoria: ";
+    cin >> peso;
+
+    if (peso < 500)
+        custo = 5;
+    else if (peso <= 1000)
+        custo = 5 + ((peso - 500) / 100) * 1.5;
+    else
+        custo = 12.5 + ((peso - 1000) / 250) * 5;
+
+    cout << fixed << setprecision(2) << "Custo de transporte (euros): " << custo;
 
     return 0;
 }
@@ -199,6 +219,27 @@ int ex2_9() {
     return 0;
 }
 
+int ex2_10() {
+    int num, reverse = 0, original;
+
+    cout << "Number? ";
+    cin >> num;
+
+    original = num;
+
+    while (num != 0) {
+        reverse = reverse * 10 + num % 10;
+        num /= 10;
+    }
+
+    if (original == reverse)
+        cout << "The number is a palindrome!";
+    else
+        cout << "The number is not a palindrome";
+
+    return 0;
+}
+
 int ex2_11() {
     double i, sum = 0, term = 1, x = 1;
     int n = 10;
@@ -214,11 +255,20 @@ int ex2_11() {
     return 0;
 }
 
-int factor(int n) {
-    int i
+void primeFactors(int n) {
+    cout << n << "=";
+    for (int i = 2; i <= sqrt(n); i++) {
+        while (n % i == 0) {
+            cout << i << "x";
+            n = n / i;
+        }
+    }
+    cout << n;
 }
-int main() {
 
+int ex2_13() {
+    primeFactors(20);
+    return 0;
 }
 
 double heron_sqrt(double n, double delta, double nMaxIter, double rq = 1) {
@@ -255,3 +305,28 @@ int ex2_14() {
     return 0;
 }
 
+int ex2_15() {
+    int time_init, time_ans, num1, num2, ans, tdelta;
+    srand(time(NULL));
+
+    num1 = rand() % 8 + 2;
+    num2 = rand() % 8 + 2;
+
+    cout << num1 << "x" << num2 << "=";
+    time_init = time(NULL);
+    cin >> ans;
+    time_ans = time(NULL);
+
+    tdelta = time_ans - time_init;
+
+    if (ans != num1*num2)
+        cout << "WRONG!";
+    else if (tdelta < 5)
+        cout << "Very well!";
+    else if (tdelta <= 10)
+        cout << "Ok...";
+    else
+        cout << "Not good enough...";
+
+    return 0;
+}
