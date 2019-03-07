@@ -149,6 +149,27 @@ int ex2_7() {
     return 0;
 }
 
+double compound_int(double n, double q, double j) {
+    return q * pow((1 + j/100), n);
+}
+
+int ex2_8() {
+    double n, q, j, available;
+
+    cout << "# de anos do depósito: ";
+    cin >> n;
+    cout << "Quantia depositada: ";
+    cin >> q;
+    cout << "Taxa anual nominal (%): ";
+    cin >> j;
+
+    available = compound_int(n, q, j);
+
+    cout << endl << "Quantia disponível ao fim de " << n << " anos: " << available;
+
+    return 0;
+}
+
 int ex2_9() {
     int input, sum = 0, big, small, size = 0;
     double average;
