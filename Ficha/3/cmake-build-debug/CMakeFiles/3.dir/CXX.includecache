@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/antonio/FEUP/1_ano/2_sem/PROG/Ficha/3/main.cpp
+iostream
+-
+iomanip
+-
+cmath
+-
+limits
+-
+
