@@ -19,6 +19,33 @@ int ex3_4() {
     return 0;
 }
 
-int main() {
+bool readFrac(int &numerator, int &denominator) {
+    char separator;
+    cin >> numerator >> separator >> denominator;
+    if (separator == '/' && denominator != 0)
+        return true;
+    else
+        numerator = 0;
+        denominator = 0;
+        return false;
+}
 
+void writeFrac(int numerator, int denominator) {
+    cout << numerator << "/" << denominator;
+}
+
+int gcd(int a, int b) {
+    if (a < b)
+        swap(a, b);
+    while (a % b != 0) {
+        swap(a, b);
+        b %= a;
+    }
+    return b;
+
+}
+
+int main() {
+    int num, den;
+    cout << gcd(25,5);
 }
