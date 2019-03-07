@@ -12,8 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb224092-672c-4a4d-b756-a832ece2f810" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -37,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="167" column="83" selection-start-line="167" selection-start-column="83" selection-end-line="167" selection-end-column="83" />
+            <state relative-caret-position="187">
+              <caret line="243" column="14" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#79#745#0" />
@@ -46,8 +45,11 @@
                 <element signature="e#1449#2215#0" />
                 <element signature="e#2217#2329#0" />
                 <element signature="e#2331#2921#0" />
+                <element signature="e#2923#2967#0" />
+                <element signature="e#2923#2942#0" />
                 <element signature="e#2923#3570#0" />
                 <element signature="e#3572#3794#0" />
+                <element signature="e#4523#4558#0" />
               </folding>
             </state>
           </provider>
@@ -75,15 +77,13 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -116,15 +116,16 @@
       <updated>1551352335218</updated>
       <workItem from="1551352336769" duration="6296000" />
       <workItem from="1551914035878" duration="7290000" />
-      <workItem from="1551949260326" duration="860000" />
+      <workItem from="1551949260326" duration="3491000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14446000" />
+    <option name="totallyTimeSpent" value="17077000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24919957" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.2497332" />
@@ -157,8 +158,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="167" column="83" selection-start-line="167" selection-start-column="83" selection-end-line="167" selection-end-column="83" />
+        <state relative-caret-position="187">
+          <caret line="243" column="14" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#79#745#0" />
@@ -166,8 +167,11 @@
             <element signature="e#1449#2215#0" />
             <element signature="e#2217#2329#0" />
             <element signature="e#2331#2921#0" />
+            <element signature="e#2923#2967#0" />
+            <element signature="e#2923#2942#0" />
             <element signature="e#2923#3570#0" />
             <element signature="e#3572#3794#0" />
+            <element signature="e#4523#4558#0" />
           </folding>
         </state>
       </provider>

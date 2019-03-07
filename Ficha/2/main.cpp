@@ -149,8 +149,8 @@ int ex2_7() {
     return 0;
 }
 
-double compound_int(double n, double q, double j) {
-    return q * pow((1 + j/100), n);
+double compound_int(double n, double q, double j, double k = 1) {
+    return q * pow((1 + j/(100 * k)), n);
 }
 
 int ex2_8() {
@@ -213,3 +213,45 @@ int ex2_11() {
 
     return 0;
 }
+
+int factor(int n) {
+    int i
+}
+int main() {
+
+}
+
+double heron_sqrt(double n, double delta, double nMaxIter, double rq = 1) {
+    for (nMaxIter; nMaxIter >= 0; nMaxIter--) {
+        rq = (rq + n / rq) / 2;
+        if (abs(n - pow(rq, 2)) <= delta)
+            break;
+    }
+
+    return rq;
+}
+
+int decCases(double delta) {
+    int nCases = 0;
+
+    for (delta; delta < 1; delta *= 10) {
+        nCases++;
+    }
+
+    return nCases;
+}
+
+int ex2_14() {
+    double n, delta, nMaxIter;
+
+    cout << "Precision: ";
+    cin >> delta;
+    cout << "Maximum iteration: ";
+    cin >> nMaxIter;
+    cout << "n? ";
+    cin >> n;
+
+    cout << setprecision(decCases(delta)) << fixed << heron_sqrt(n, delta, nMaxIter) << endl << sqrt(n);
+    return 0;
+}
+
