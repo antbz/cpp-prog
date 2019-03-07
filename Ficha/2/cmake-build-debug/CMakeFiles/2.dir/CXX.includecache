@@ -9,6 +9,8 @@
 /home/antonio/FEUP/1_ano/2_sem/PROG/Ficha/2/main.cpp
 iostream
 -
+iomanip
+-
 cmath
 -
 

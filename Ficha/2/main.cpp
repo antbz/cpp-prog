@@ -1,9 +1,10 @@
 #include <iostream>
+#include <iomanip>
 #include <cmath>
 
 using namespace std;
 
-int ex22() {
+int ex2_2() {
     double a, b, c;
 
     cout << "Please input 3 numbers: ";
@@ -43,7 +44,7 @@ int ex22() {
     return 0;
 }
 
-int ex23() {
+int ex2_3() {
     const char QUIT = 'q';
     double n1, n2, result;
     char operand, qt;
@@ -80,7 +81,7 @@ int ex23() {
     return 0;
 }
 
-int ex26() {
+int ex2_6() {
     int n = 2, i, p = 0;
     bool isPrime;
 
@@ -116,7 +117,7 @@ int ex26() {
             cout << n << endl;
     }
 
-//    cout << "O número é primasss!";
+//    cout << "O número é primo!";
 
     return 0;
 }
@@ -126,19 +127,68 @@ double deg2rad(double angle) {
     return (pi * angle) / 180;
 }
 
-
-int main() {
-    float min, max, step;
+int ex2_7() {
+    double min, max, step, i;
 
     cout << "Table min, max and step: ";
     cin >> min >> max >> step;
 
-    cout << "ang\t" << "sen\t" << "cos\t" << "tan" << endl;
+    cout << "ang" << setw(10) << "sen" << setw(10) << "cos" << setw(10) << "tan" << endl;
 
-    cout.precision(6);
-    cout << fixed;
+//    cout.precision(6);
+//    cout << fixed;
 
-    cout << cos(deg2rad(15));
+    for (i = min; i <= max; i += step) {
+        cout << setw(5) << defaultfloat << internal << i << setw(10) << setprecision(6) << fixed << sin(deg2rad(i)) << setw(10) << cos(deg2rad(i)) << setw(10);
+        if (i != 90)
+            cout << tan(deg2rad(i)) << endl;
+        else
+            cout << "infinito";
+    }
+
+    return 0;
+}
+
+int ex2_9() {
+    int input, sum = 0, big, small, size = 0;
+    double average;
+
+    cout << "Input sequence (END = f): ";
+    cin >> input;
+
+    while (!cin.fail()) {
+        sum += input;
+        size++;
+        if (size == 1) {
+            big = input;
+            small = input;
+        }
+        if (input > big)
+            big = input;
+        if (input < small)
+            small = input;
+        cin >> input;
+    }
+
+    average = double(sum) / double(size);
+
+    cout << endl << "Sum: " << sum << endl << "Size: " << size << endl << "Max: " << big << endl << "Min: " << small;
+    cout << endl << "Average: " << average;
+
+    return 0;
+}
+
+int ex2_11() {
+    double i, sum = 0, term = 1, x = 1;
+    int n = 10;
+
+    for (i = 0; i <= n; i++) {
+        if (i != 0)
+            term *= 1/i;
+        sum += pow(-1, i) * term;
+    }
+
+    cout << sum;
 
     return 0;
 }
