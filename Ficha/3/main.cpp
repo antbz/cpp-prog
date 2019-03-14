@@ -19,6 +19,17 @@ int ex3_4() {
     return 0;
 }
 
+// ex3_5
+int gcd(int a, int b) {
+    if (a < b)
+        swap(a, b);
+    while (a % b != 0) {
+        swap(a, b);
+        b %= a;
+    }
+    return b;
+}
+
 bool readFrac(int &numerator, int &denominator) {
     char separator;
     cin >> numerator >> separator >> denominator;
@@ -31,21 +42,61 @@ bool readFrac(int &numerator, int &denominator) {
 }
 
 void writeFrac(int numerator, int denominator) {
-    cout << numerator << "/" << denominator;
+    cout << numerator << "/" << denominator << endl;
 }
 
-int gcd(int a, int b) {
-    if (a < b)
-        swap(a, b);
-    while (a % b != 0) {
-        swap(a, b);
-        b %= a;
+void reduceFrac(int &numerator, int &denominator) {
+    int greatest;
+    greatest = gcd(numerator, denominator);
+    numerator /= greatest;
+    denominator /= greatest;
+}
+
+void calcFrac(int num1, int den1, int num2, int den2, char op) {
+    int res_num, res_den;
+
+    switch (op) {
+        // Addition
+        case '+':
+            res_num = num1 * den2 + num2 * den1;
+            res_den = den1 * den2;
+            break;
+
+        //Subtraction
+        case '-':
+            res_num = num1 * den2 - num2 * den1;
+            res_den = den1 * den2;
+            break;
+
+        //Multiplication
+        case '*':
+            res_num = num1 * num2;
+            res_den = den1 * den2;
+            break;
+
+        //Division
+        case '/':
+            res_num = num1 * den2;
+            res_den = num2 * den1;
+            break;
     }
-    return b;
-
+    cout << res_num << endl;
+    cout << res_den << endl;
+    writeFrac(res_num, res_den);
+    reduceFrac(res_num, res_den);
+    writeFrac(res_num, res_den);
 }
 
-int main() {
+int ex3_5() {
     int num, den;
-    cout << gcd(25,5);
+
+//    num = 42;
+//    den = 28;
+//    reduceFrac(num, den);
+//    writeFrac(num, den);
+
+    calcFrac(1,2,1,3,'+');
+
+    return 0;
 }
+
