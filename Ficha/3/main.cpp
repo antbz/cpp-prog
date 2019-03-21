@@ -205,3 +205,15 @@ void yearCalendar(int year) {
 int ex3_6() {
     yearCalendar(2004);
 }
+
+// ex3_8
+int rec_mdc(int m, int n) {
+    if (m % n == 0)
+        return n;
+    else
+        return rec_mdc(n, m % n);
+}
+
+int ex3_8() {
+    cout << rec_mdc(96, 34);
+}
