@@ -14,9 +14,6 @@
     <list default="true" id="07107525-ed46-496e-b5db-e2172723a41a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/3" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -51,17 +48,24 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="172" column="14" selection-start-line="172" selection-start-column="14" selection-end-line="172" selection-end-column="14" />
+            <state relative-caret-position="473">
+              <caret line="204" selection-start-line="204" selection-end-line="204" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#737#879#0" />
-                <element signature="e#371#638#0" />
-                <element signature="e#640#735#0" />
-                <element signature="e#976#1035#0" />
-                <element signature="e#1062#1911#0" />
-                <element signature="e#881#936#0" />
-                <element signature="e#2565#2615#0" />
+                <element signature="e#97#197#0" />
+                <element signature="e#199#396#0" />
+                <element signature="e#398#548#0" />
+                <element signature="e#550#809#0" />
+                <element signature="e#811#914#0" />
+                <element signature="e#916#1087#0" />
+                <element signature="e#1089#1831#0" />
+                <element signature="e#1833#2001#0" />
+                <element signature="e#2003#2217#0" />
+                <element signature="e#2219#2589#0" />
+                <element signature="e#2591#3114#0" />
+                <element signature="e#3116#4308#0" />
+                <element signature="e#4463#4499#0" />
+                <element signature="e#3868#3910#0" />
               </folding>
             </state>
           </provider>
@@ -82,7 +86,7 @@
   <component name="ProjectFrameBounds" extendedState="4">
     <option name="x" value="960" />
     <option name="y" value="27" />
-    <option name="width" value="960" />
+    <option name="width" value="950" />
     <option name="height" value="1053" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -90,10 +94,7 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -131,15 +132,17 @@
       <updated>1551960675271</updated>
       <workItem from="1551960676557" duration="2968000" />
       <workItem from="1551963681789" duration="106000" />
-      <workItem from="1552561938306" duration="6564000" />
+      <workItem from="1552561938306" duration="6705000" />
+      <workItem from="1553023913970" duration="18000" />
+      <workItem from="1553158526762" duration="2673000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9638000" />
+    <option name="totallyTimeSpent" value="12470000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="27" width="960" height="1053" extended-state="4" />
+    <frame x="960" y="27" width="950" height="1053" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.22647703" />
@@ -148,7 +151,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3293348" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3991276" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -176,17 +179,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="172" column="14" selection-start-line="172" selection-start-column="14" selection-end-line="172" selection-end-column="14" />
+        <state relative-caret-position="473">
+          <caret line="204" selection-start-line="204" selection-end-line="204" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#737#879#0" />
-            <element signature="e#371#638#0" />
-            <element signature="e#640#735#0" />
-            <element signature="e#976#1035#0" />
-            <element signature="e#1062#1911#0" />
-            <element signature="e#881#936#0" />
-            <element signature="e#2565#2615#0" />
+            <element signature="e#97#197#0" />
+            <element signature="e#199#396#0" />
+            <element signature="e#398#548#0" />
+            <element signature="e#550#809#0" />
+            <element signature="e#811#914#0" />
+            <element signature="e#916#1087#0" />
+            <element signature="e#1089#1831#0" />
+            <element signature="e#1833#2001#0" />
+            <element signature="e#2003#2217#0" />
+            <element signature="e#2219#2589#0" />
+            <element signature="e#2591#3114#0" />
+            <element signature="e#3116#4308#0" />
+            <element signature="e#4463#4499#0" />
+            <element signature="e#3868#3910#0" />
           </folding>
         </state>
       </provider>

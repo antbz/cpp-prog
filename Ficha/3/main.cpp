@@ -159,21 +159,49 @@ void monthCalendar(int month, int year) {
                          "April", "May", "June", "July",
                          "August", "September", "October",
                          "November", "December"};
-    int space = 8;
+    int space = 6;
+    int startDay, numberOfDays, currentPos;
 
 // Formats the header of the calendar
-    cout << months[month - 1] << "/" << year << endl;
+    cout << months[month - 1] << " / " << year << endl;
     cout << "Sun" << setw(space) << "Mon" << setw(space) << "Tue" << setw(space) << "Wed"
     << setw(space) << "Thu" << setw(space) << "Fri" << setw(space) << "Sat" << endl;
 
 // Writes the first month of the calendar with necessary white space
-    for (int i = (weekDay(year, month, 1) - 1) % 7; i >= 0; i--) {
+
+    startDay = (weekDay(year, month, 1) + 6) % 7;       //Calculates the number of leading spaces for the 1st day of the month
+    currentPos = startDay;      //Sets a variable that tracks the position on the calendar
+    numberOfDays = daysInMonth(month, year);
+//    cout << endl << currentPos << endl;
+
+    for (int i = startDay; i >= 1; i--) {
         cout << "   " << setw(space);
     }
+    if (currentPos == 0)
+        cout << setw(3);
     cout << 1;
 
+    for (int i = 2; i <= numberOfDays; i++) {
+        currentPos++;
+        if (currentPos > 6) {
+            cout << endl;
+            currentPos = 0;
+        }
+        if (currentPos == 0)
+            cout << setw(3) << i;
+        else
+            cout << setw(space) << i;
+
+    }
 }
 
-int main() {
-    monthCalendar(3, 2019);
+void yearCalendar(int year) {
+    for (int i = 1; i <=12; i++) {
+        monthCalendar(i, year);
+        cout << endl << endl << "--------------------------------" << endl << endl;
+    }
+}
+
+int ex3_6() {
+    yearCalendar(2004);
 }
