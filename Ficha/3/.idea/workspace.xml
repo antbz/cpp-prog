@@ -11,10 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="07107525-ed46-496e-b5db-e2172723a41a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../4/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="07107525-ed46-496e-b5db-e2172723a41a" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +44,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
+            <state relative-caret-position="761">
               <caret line="218" column="1" selection-start-line="218" selection-start-column="1" selection-end-line="218" selection-end-column="1" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -62,11 +59,6 @@
                 <element signature="e#2003#2217#0" />
                 <element signature="e#2219#2589#0" />
                 <element signature="e#2591#3114#0" />
-                <element signature="e#3116#4308#0" />
-                <element signature="e#4463#4499#0" />
-                <element signature="e#3868#3910#0" />
-                <element signature="e#4760#4803#0" />
-                <element signature="e#4805#4824#0" />
               </folding>
             </state>
           </provider>
@@ -136,14 +128,16 @@
       <workItem from="1552561938306" duration="6705000" />
       <workItem from="1553023913970" duration="18000" />
       <workItem from="1553158526762" duration="5330000" />
+      <workItem from="1553245194216" duration="41000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15127000" />
+    <option name="totallyTimeSpent" value="15168000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="960" y="27" width="950" height="1053" extended-state="4" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.22647703" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -179,7 +173,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
+        <state relative-caret-position="761">
           <caret line="218" column="1" selection-start-line="218" selection-start-column="1" selection-end-line="218" selection-end-column="1" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -194,11 +188,6 @@
             <element signature="e#2003#2217#0" />
             <element signature="e#2219#2589#0" />
             <element signature="e#2591#3114#0" />
-            <element signature="e#3116#4308#0" />
-            <element signature="e#4463#4499#0" />
-            <element signature="e#3868#3910#0" />
-            <element signature="e#4760#4803#0" />
-            <element signature="e#4805#4824#0" />
           </folding>
         </state>
       </provider>

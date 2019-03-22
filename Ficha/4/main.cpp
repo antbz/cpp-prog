@@ -1,13 +1,15 @@
 #include <iostream>
 #include <string>
 #include <string.h>
+#include <array>
+#include <vector>
 
 using namespace std;
 
 // ex4_1
 bool isHydroxide(char compound[]) {
     int len = strlen(compound);
-    if (compound[len-2] == 'O' && compound[len-1] == 'H')
+    if (compound[len - 2] == 'O' && compound[len - 1] == 'H')
         return true;
     return false;
 }
@@ -39,8 +41,7 @@ void decompose(string compound) {
                 cout << element << endl;
             element = "";
             element += compound[i];
-        }
-        else if (isalpha(compound[i]))
+        } else if (isalpha(compound[i]))
             element += compound[i];
     }
     cout << element;
@@ -67,8 +68,54 @@ int searchValueInIntArray(const int a[], int nElem, int value) {
     return -1;
 }
 
-int main() {
+int searchMultValuesInIntArray(const int a[], int nElem, int value, int index[]) {
+    int found = 0;
+    for (int i = 0; i < nElem; i++) {
+        if (value == a[i]) {
+            index[found] = i;
+            found++;
+        }
+    }
+    return found;
+}
+
+int ex4_6() {
     int a[5];
+    int index[5];
     readIntArray(a, 5);
-    cout << searchValueInIntArray(a, 5, 3);
+    cout << searchMultValuesInIntArray(a, 5, 3, index);
+}
+
+// ex4_7
+void readIntVector(vector<int> &v) {
+    int tmp;
+    int i = 0;
+    cout << i << ": ";
+    cin >> tmp;
+    while (!cin.eof()) {
+        v.push_back(tmp);
+        i++;
+        cout << i << ": ";
+        cin >> tmp;
+    }
+}
+
+vector<int> searchMultValuesInIntVector(const vector<int> &v, int value) {
+    vector<int> found;
+    for (int i = 0; i < v.size(); i++) {
+        if (value == v[i]) {
+            found.push_back(i);
+        }
+    }
+    return found;
+}
+
+int main() {
+    vector<int> v, f;
+    readIntVector(v);
+    f = searchMultValuesInIntVector(v, 4);
+    cout << endl << "Found 4 in the following indexes" << endl;
+    for (int i = 0; i < f.size(); i++) {
+        cout << f[i] << "  ";
+    }
 }
