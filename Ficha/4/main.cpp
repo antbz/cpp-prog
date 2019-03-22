@@ -125,10 +125,10 @@ int ex4_7() {
 void bubblesort(vector<string> &v) {
     for (int i = 0; i < v.size() - 1; i++) {
         for (int j = 0; j < v.size() - 1 - i; j++) {
-            int cmp = v[j].compare(v[j+1]);
-            if (cmp > 0){
-                string tmp = v[j+1];
-                v[j+1] = v[j];
+            int cmp = v[j].compare(v[j + 1]);
+            if (cmp > 0) {
+                string tmp = v[j + 1];
+                v[j + 1] = v[j];
                 v[j] = tmp;
             }
         }
@@ -140,5 +140,33 @@ int ex4_8() {
     bubblesort(ree);
     for (int i = 0; i < ree.size(); i++)
         cout << i << ": " << ree[i] << endl;
+    return 0;
+}
+
+// ex4_9
+int binarySearch(const vector<string> &v, string value) {
+    int bottom = 0;
+    int top = v.size() - 1;
+    int middle = top / 2;
+
+    do {
+        if (v[middle] == value)
+            return middle;
+        else if (v[middle] < value)
+            bottom = middle + 1;
+        else
+            top = middle - 1;
+        middle = (bottom + top)/2;
+    } while (bottom != top);
+
+    return -1;
+}
+
+int main() {
+    vector<string> ree = {"Amanda", "Daniel", "Adao", "Pass", "Edda"};
+    bubblesort(ree);
+    cout << binarySearch(ree, "Amanda");
+//    for (int i = 0; i < ree.size(); i++)
+//        cout << i << ": " << ree[i] << endl;
     return 0;
 }
