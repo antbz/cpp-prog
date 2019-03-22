@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 // ex4_1
 bool isHydroxide(char compound[]) {
     int len = strlen(compound);
@@ -110,7 +111,7 @@ vector<int> searchMultValuesInIntVector(const vector<int> &v, int value) {
     return found;
 }
 
-int main() {
+int ex4_7() {
     vector<int> v, f;
     readIntVector(v);
     f = searchMultValuesInIntVector(v, 4);
@@ -118,4 +119,26 @@ int main() {
     for (int i = 0; i < f.size(); i++) {
         cout << f[i] << "  ";
     }
+}
+
+// ex4_8
+void bubblesort(vector<string> &v) {
+    for (int i = 0; i < v.size() - 1; i++) {
+        for (int j = 0; j < v.size() - 1 - i; j++) {
+            int cmp = v[j].compare(v[j+1]);
+            if (cmp > 0){
+                string tmp = v[j+1];
+                v[j+1] = v[j];
+                v[j] = tmp;
+            }
+        }
+    }
+}
+
+int ex4_8() {
+    vector<string> ree = {"Amanda", "Daniel", "Adao", "Pass", "Edda"};
+    bubblesort(ree);
+    for (int i = 0; i < ree.size(); i++)
+        cout << i << ": " << ree[i] << endl;
+    return 0;
 }
