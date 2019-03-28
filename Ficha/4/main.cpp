@@ -193,3 +193,39 @@ int ex4_10() {
     for (int i = 0; i < mee.size(); i++)
         cout << i << ": " << mee[i] << endl;
 }
+
+// ex4_13
+void fileToVector(string f_name, vector<string> &v) {
+    string str;
+    ifstream file(f_name);
+
+    while (getline(file, str)) {
+        v.push_back(str);
+    }
+
+    file.close();
+}
+
+void vectorToFile(vector<string> &v, string f_name) {
+    ofstream file(f_name);
+
+    for (int i = 0; i < v.size(); i++)
+        file << v[i] << endl;
+}
+
+int ex4_13() {
+    string f_name, of_name;
+    vector<string> vect;
+
+    cout << "Open file: ";
+    getline(cin, f_name);
+
+    fileToVector(f_name, vect);
+
+    bubblesort(vect);
+
+    of_name = f_name.substr(0, f_name.length() - 4) + "_sorted.txt";
+
+    vectorToFile(vect, of_name);
+
+}
