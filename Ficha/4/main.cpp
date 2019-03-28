@@ -3,6 +3,7 @@
 #include <string.h>
 #include <array>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -157,16 +158,38 @@ int binarySearch(const vector<string> &v, string value) {
         else
             top = middle - 1;
         middle = (bottom + top)/2;
-    } while (bottom != top);
+    } while (bottom <= top);
 
     return -1;
 }
 
-int main() {
+int ex4_9() {
     vector<string> ree = {"Amanda", "Daniel", "Adao", "Pass", "Edda"};
     bubblesort(ree);
-    cout << binarySearch(ree, "Amanda");
+    cout << binarySearch(ree, "Edda");
 //    for (int i = 0; i < ree.size(); i++)
 //        cout << i << ": " << ree[i] << endl;
     return 0;
+}
+
+// ex4_10
+void removeDuplicates(vector<int> &v) {
+    int i = 0;
+    while (i < v.size()) {
+        int j = i + 1;
+        while (j < v.size()) {
+            if (v[i] == v[j])
+                v.erase(v.begin() + j);
+            else
+                j++;
+        }
+        i++;
+    }
+}
+
+int ex4_10() {
+    vector<int> mee = {1, 1, 1,2,3,1,2, 2, 2,3,1,2,3};
+    removeDuplicates(mee);
+    for (int i = 0; i < mee.size(); i++)
+        cout << i << ": " << mee[i] << endl;
 }
