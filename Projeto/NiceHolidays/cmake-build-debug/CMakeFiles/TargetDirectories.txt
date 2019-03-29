@@ -1,0 +1,3 @@
+/home/antonio/FEUP/1_ano/2_sem/PROG/Projeto/NiceHolidays/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/antonio/FEUP/1_ano/2_sem/PROG/Projeto/NiceHolidays/cmake-build-debug/CMakeFiles/NiceHolidays.dir
+/home/antonio/FEUP/1_ano/2_sem/PROG/Projeto/NiceHolidays/cmake-build-debug/CMakeFiles/edit_cache.dir

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/antonio/FEUP/1_ano/2_sem/PROG/Projeto/NiceHolidays/main.cpp
+iostream
+-
+iomanip
+-
+iterator
+-
+string
+-
+vector
+-
+fstream
+-
+
