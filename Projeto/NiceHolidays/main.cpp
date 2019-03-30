@@ -68,6 +68,10 @@ void showIntVect(vector<int> &v, int spos = 0, int epos = -1, bool oneline = fal
     }
 }
 
+void line(int size, char ch = '-') {
+    cout << setfill(ch) << setw(size) << "" << endl << setfill(' ');
+}
+
 // Date handling
 struct Date {
     unsigned int day, month, year;
@@ -293,6 +297,20 @@ void showPackVect(vector<Pack> &v) {
     }
 }
 
+void mainMenu() {
+    string opt;
+
+    line(35);
+    cout << setfill(' ') << setw(22) << "INÍCIO" << endl;
+    line(35);
+    cout << setw(4) << left << '|' << "1. Ver clientes" << endl;
+    cout << setw(4) << left << '|' << "2. Ver pacotes" << endl;
+    cout << setw(4) << left << '|' << "3. Adicionar cliente" << endl;
+    cout << setw(4) << left << '|' << "4. Adicionar pacote" << endl;
+
+    getline(cin, opt);
+
+}
 
 int main() {
     // Initialize variables
@@ -306,7 +324,11 @@ int main() {
     readClients(clients, a1.clientsFileName);
     readPacks(packs, a1.packsFileName);
 
+    // Menu
+
+    cout << "* NiceHolidays GEST v1.0 BETA *" << endl;
+    mainMenu();
+
     // Testing area
-    addPack(packs);
-    showPackVect(packs);
+
 }
