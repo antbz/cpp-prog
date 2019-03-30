@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// General functions
+// Diplay functions
 vector<string> strToVect(const string &str, char delim = ' ') {
     vector<string> result;
     string tmp;
@@ -40,6 +40,7 @@ void showStrVectOL(vector<string> &v, int spos = 0, int epos = -1, string sep = 
 }
 
 
+// Date handling
 struct Date {
     unsigned int day, month, year;
     string full;
@@ -81,12 +82,14 @@ void readClients(vector<Client> &c, string f_name) {
     while (!c_file.eof()) {
         // Adds new client to vector
         c.push_back(Client());
+
         // Grabs the client info from the file
         getline(c_file, c.back().name);
         getline(c_file, c.back().nif);
         getline(c_file, c.back().household);
         getline(c_file, c.back().address);
         getline(c_file, c.back().packs);
+
         // Discards delimiter line
         getline(c_file, str);
     }
@@ -106,13 +109,13 @@ void showClientVect(vector<Client> &v) {
 
 // Pack file function
 struct Pack {
-    int totalSeats, soldSeats, price;
-    string id, mainDest;
+    int id, totalSeats, soldSeats, price;
+    string mainDest;
     vector<string> destinations;
     Date startDate, endDate;
 };
 
-string lastID;
+int lastID;
 
 void readPacks(vector<Pack> &p, string f_name) {
     ifstream p_file(f_name);
@@ -120,14 +123,16 @@ void readPacks(vector<Pack> &p, string f_name) {
     vector<string> vect;
 
     // Grabs lastID
-    getline(p_file, lastID);
+    getline(p_file, str);
+    lastID = stoi(str);
 
     while(!p_file.eof()) {
         // Adds new client to vector
         p.push_back(Pack());
 
         // Gets pack id
-        getline(p_file, p.back().id);
+        getline(p_file, str);
+        p.back().id = stoi(str);
 
         // Gets destinations
         getline(p_file, str);
@@ -165,23 +170,29 @@ void readPacks(vector<Pack> &p, string f_name) {
 }
 
 void showPackVect(vector<Pack> &v) {
-    cout << "Last ID: " << lastID << endl;
+    cout << setw(2) << ' ' << "Pacotes de viagem disponíveis:" << endl;
+    // [DEBUG] cout << "> Last ID: " << lastID << endl;
     for (int i = 0; i < v.size(); i++) {
-        cout << v[i].id << endl;
-        cout << v[i].mainDest << endl;
+        cout << "/" << endl;
+        cout << setw(4) << left << '|' << "Pack ID: " << v[i].id << endl;
+        cout << setw(4) << left << '|' << "Destino principal: " << v[i].mainDest << endl;
+        if (v[i].destinations.size() > 1)
+            cout << setw(4) << left << '|' << "Destinos adicionais: ";
         showStrVectOL(v[i].destinations, 1, -1); // Not printed if only one main destination
-        cout << v[i].startDate.full << endl;
-        cout << v[i].startDate.day << '-' << v[i].startDate.month << '-' << v[i].startDate.year << endl;
-        cout << v[i].endDate.full << endl;
-        cout << v[i].endDate.day << '-' << v[i].endDate.month << '-' << v[i].endDate.year << endl;
-        cout << v[i].price << endl;
-        cout << v[i].totalSeats << endl;
-        cout << v[i].soldSeats << endl;
+        cout << setw(4) << left << '|' << "Data de início: " << v[i].startDate.full << endl;
+        // [DEBUG] cout << setw(4) << left << '|' << "" << v[i].startDate.day << '-' << v[i].startDate.month << '-' << v[i].startDate.year << endl;
+        cout << setw(4) << left << '|' << "Data de fim: " << v[i].endDate.full << endl;
+        // [DEBUG] cout << setw(4) << left << '|' << "" << v[i].endDate.day << '-' << v[i].endDate.month << '-' << v[i].endDate.year << endl;
+        cout << setw(4) << left << '|' << "Preço pacote: " << v[i].price << endl;
+        cout << setw(4) << left << '|' << "Número de vagas: " << v[i].totalSeats << endl;
+        cout << setw(4) << left << '|' << "Vagas vendidas: " << v[i].soldSeats << endl;
+        cout << "\\_" << endl;
     }
 }
 
 
 int main() {
+    
     Agency a1;
     vector<Client> clients;
     vector<Pack> packs;
