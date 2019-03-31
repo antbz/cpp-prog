@@ -36,7 +36,7 @@ vector<int> strToIntVect(const string &str, char delim = ' ') {
     return result;
 }
 
-void showStrVect(vector<string> &v, int spos = 0, int epos = -1, bool oneline = false, string sep = ", ") {
+void showStrVect(const vector<string> &v, int spos = 0, long epos = -1, bool oneline = false, const string sep = ", ") {
     if (epos == -1)
         epos = v.size();
     if (oneline) {
@@ -86,80 +86,126 @@ void extractDate(Date &date) {
     date.year = stoi(temp[0]);
 }
 
-// Agency file functions
-struct Agency {
-    string name, nif, url, address, clientsFileName, packsFileName;
+// Address handling
+struct Address {
+    // rua / número da porta / número do andar / código postal / localidade
+    string street, door, level, postcode, town, file_format, display_format;
 };
 
-void openAgency(Agency &a) {
-    ifstream a_file("agency.txt");
-    getline(a_file, a.name);
-    getline(a_file, a.nif);
-    getline(a_file, a.url);
-    getline(a_file, a.address);
-    getline(a_file, a.clientsFileName);
-    getline(a_file, a.packsFileName);
-    a_file.close();
+void extractAddress(Address &address, bool file = true) {
+    vector<string> temp;
+    if (file) {
+        temp = strToVect(address.file_format, '/');
+        if (temp.size() != 5)
+            throw 100;
+        address.display_format = temp[0] + ", " + temp[1] + ", " + temp[2] + ", " + temp[3] + ", " + temp[4];
+    }
+    else {
+        temp = strToVect(address.display_format, ',');
+        if (temp.size() != 5)
+            throw 100;
+        address.file_format = temp[0] + " / " + temp[1] + " / " + temp[2] + " / " + temp[3] + " / " + temp[4];
+    }
+    address.street = temp[0];
+    address.door = temp[1];
+    address.level = temp[2];
+    address.postcode = temp[3];
+    address.town = temp[4];
 }
 
-void showAgency(Agency &a) {
-    cout << setw(2) << ' ' << a.name << endl;
+void grabAddress(Address &address) {
+    while (true) {
+        try {
+            cout << "Morada: ";
+            getline(cin, address.display_format);
+            extractAddress(address, false);
+            break;
+        } catch (int e) {
+            cerr << "ERRO: Introduza a morada no formato: rua, número da porta, número do andar, código postal, "
+                    "localidade, sem omissões";
+            cout << endl;
+        }
+    }
+}
+
+// Agency file functions
+struct Agency {
+    string name, nif, url, clientsFileName, packsFileName;
+    Address address;
+};
+
+void openAgency(Agency &agency) {
+    ifstream agency_file("agency.txt");
+    getline(agency_file, agency.name);
+    getline(agency_file, agency.nif);
+    getline(agency_file, agency.url);
+    getline(agency_file, agency.address.file_format);
+    extractAddress(agency.address);
+    getline(agency_file, agency.clientsFileName);
+    getline(agency_file, agency.packsFileName);
+    agency_file.close();
+}
+
+void showAgency(Agency &agency) {
+    cout << setw(2) << ' ' << agency.name << endl;
     cout << "/" << endl;
-    cout << setw(4) << left << '|' << "NIF: " << a.nif << endl;
-    cout << setw(4) << left << '|' << "Website: " << a.url << endl;
-    cout << setw(4) << left << '|' << "Morada: " << a.address << endl;
-    cout << setw(4) << left << '|' << "Ficheiro de clientes: " << a.clientsFileName << endl;
-    cout << setw(4) << left << '|' << "Ficheiro de pacotes: " << a.packsFileName << endl;
+    cout << setw(4) << left << '|' << "NIF: " << agency.nif << endl;
+    cout << setw(4) << left << '|' << "Website: " << agency.url << endl;
+    cout << setw(4) << left << '|' << "Morada: " << agency.address.display_format << endl;
+    cout << setw(4) << left << '|' << "Ficheiro de clientes: " << agency.clientsFileName << endl;
+    cout << setw(4) << left << '|' << "Ficheiro de pacotes: " << agency.packsFileName << endl;
     cout << "\\_" << endl;
 }
 
 // Client file functions
 struct Client {
-    string name, nif, household, address;
+    string name, nif, household;
+    Address address;
     vector<int> packs;
 };
 
-void readClients(vector<Client> &c, string f_name) {
-    ifstream c_file(f_name);
+void readClients(vector<Client> &clients, string f_name) {
+    ifstream clients_file(f_name);
     string str;
 
-    while (!c_file.eof()) {
+    while (!clients_file.eof()) {
         // Adds new client to vector
-        c.push_back(Client());
+        clients.push_back(Client());
 
         // Grabs the client info from the file
-        getline(c_file, c.back().name);
-        getline(c_file, c.back().nif);
-        getline(c_file, c.back().household);
-        getline(c_file, c.back().address);
-        getline(c_file, str);
-        c.back().packs = strToIntVect(str, ';');
+        getline(clients_file, clients.back().name);
+        getline(clients_file, clients.back().nif);
+        getline(clients_file, clients.back().household);
+        getline(clients_file, clients.back().address.file_format);
+        extractAddress(clients.back().address);
+        getline(clients_file, str);
+        clients.back().packs = strToIntVect(str, ';');
 
         // Discards delimiter line
-        getline(c_file, str);
+        getline(clients_file, str);
     }
 
-    c_file.close();
+    clients_file.close();
 }
 
-void addClient(vector<Client> &c) {
+void addClient(vector<Client> &clients) {
     string str;
 
     // Adds new client to vector
-    c.push_back(Client());
+    clients.push_back(Client());
 
     // Grabs the client info from cin
     cout << "Nome do cliente: ";
-    getline(cin, c.back().name);
+    getline(cin, clients.back().name);
     cout << "NIF: ";
-    getline(cin, c.back().nif); // TODO Verfiy if nif is valid?
+    getline(cin, clients.back().nif);
     cout << "Nº de pessoas no agregado: ";
-    getline(cin, c.back().household);
-    cout << "Morada: ";
-    getline(cin, c.back().address); // TODO Make struct for address and format like in file
+    getline(cin, clients.back().household);
+    // Address extraction
+    grabAddress(clients.back().address);
     cout << "Pacotes adquiridos: ";
     getline(cin, str);
-    c.back().packs = strToIntVect(str, ';'); // TODO Verify if pack is in packs file
+    clients.back().packs = strToIntVect(str, ';'); // TODO Verify if pack is in packs file
 
 }
 
@@ -170,7 +216,7 @@ void showClientVect(vector<Client> &v) {
         cout << setw(4) << left << '|' << "Nome: " << v[i].name << endl;
         cout << setw(4) << left << '|' << "NIF: " << v[i].nif << endl;
         cout << setw(4) << left << '|' << "Nº de pessoas no agregado: " << v[i].household << endl;
-        cout << setw(4) << left << '|' << "Morada: " << v[i].address << endl;
+        cout << setw(4) << left << '|' << "Morada: " << v[i].address.display_format << endl;
         cout << setw(4) << left << '|' << "Pacotes adquiridos: ";
         showIntVect(v[i].packs, 0, -1, true);
         cout << "\\_" << endl;
@@ -543,7 +589,7 @@ int main() {
     readPacks(packs, agency.packsFileName);
 
     // Menu
-
+    // TODO Clear cin after input errors
     cout << "* NiceHolidays GEST v1.0 BETA *" << endl;
     mainMenu(agency, clients, packs);
 
