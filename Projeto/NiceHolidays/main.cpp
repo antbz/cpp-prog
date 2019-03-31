@@ -9,6 +9,7 @@ using namespace std;
 
 // Diplay functions
 vector<string> strToVect(const string &str, char delim = ' ') {
+    // Splits a string into a vector of strings
     vector<string> result;
     string tmp;
     // Create stream from string
@@ -23,6 +24,7 @@ vector<string> strToVect(const string &str, char delim = ' ') {
 }
 
 vector<int> strToIntVect(const string &str, char delim = ' ') {
+    // Splits a string into a vector of integers
     vector<int> result;
     string tmp;
     // Create stream from string
@@ -37,6 +39,7 @@ vector<int> strToIntVect(const string &str, char delim = ' ') {
 }
 
 void showStrVect(const vector<string> &v, int spos = 0, long epos = -1, bool oneline = false, const string sep = ", ") {
+    // Prints a vector of strings, either all on the same line with a separator, or one per line
     if (epos == -1)
         epos = v.size();
     if (oneline) {
@@ -52,7 +55,8 @@ void showStrVect(const vector<string> &v, int spos = 0, long epos = -1, bool one
     }
 }
 
-void showIntVect(vector<int> &v, int spos = 0, int epos = -1, bool oneline = false, string sep = ", ") {
+void showIntVect(vector<int> &v, int spos = 0, int epos = -1, bool oneline = false, const string sep = ", ") {
+    // Prints a vector of ints, either all on the same line with a separator, or one per line
     if (epos == -1)
         epos = v.size();
     if (oneline) {
@@ -69,7 +73,32 @@ void showIntVect(vector<int> &v, int spos = 0, int epos = -1, bool oneline = fal
 }
 
 void line(int size, char ch = '-') {
+    // Prints a line of specified size with specified character
     cout << setfill(ch) << setw(size) << "" << endl << setfill(' ');
+}
+
+void cinERR(string message) {
+    // Outputs an error message and clears cin flags
+    cerr << message;
+    cin.clear();
+}
+
+void getOption(int &dest, string message = "Opção: ") {
+    // Tries to get a valid int option from cin to use in a switch-case
+    string str;
+
+    while (true) {
+        try {
+            cout << endl << message;
+            getline(cin, str);
+            cout << endl;
+            dest = stoi(str);
+            break;
+        } catch (invalid_argument) {
+            str = "";
+            cinERR("ERRO: Entrada inválida, tente outra vez");
+        }
+    }
 }
 
 // Date handling
@@ -121,8 +150,8 @@ void grabAddress(Address &address) {
             extractAddress(address, false);
             break;
         } catch (int e) {
-            cerr << "ERRO: Introduza a morada no formato: rua, número da porta, número do andar, código postal, "
-                    "localidade, sem omissões";
+            cinERR("ERRO: Introduza a morada no formato: rua, número da porta, número do andar, código postal, "
+                    "localidade, sem omissões");
             cout << endl;
         }
     }
@@ -168,12 +197,12 @@ void readClients(vector<Client> &clients, string f_name) {
     ifstream clients_file(f_name);
     string str;
 
-    while (!clients_file.eof()) {
+    while (getline(clients_file, str)) {
         // Adds new client to vector
         clients.push_back(Client());
 
         // Grabs the client info from the file
-        getline(clients_file, clients.back().name);
+        clients.back().name = str;
         getline(clients_file, clients.back().nif);
         getline(clients_file, clients.back().household);
         getline(clients_file, clients.back().address.file_format);
@@ -242,12 +271,11 @@ void readPacks(vector<Pack> &p, string f_name) {
     getline(p_file, str);
     lastID = stoi(str);
 
-    while(!p_file.eof()) {
+    while(getline(p_file, str)) {
         // Adds new pack to vector
         p.push_back(Pack());
 
         // Gets pack id
-        getline(p_file, str);
         p.back().id = stoi(str);
 
         // Gets destinations
@@ -361,43 +389,35 @@ void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void agencyMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 
 void mainMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
-    string str;
+    string str = "";
     int opt;
+    bool valid;
 
-    cout << endl << "Opção: ";
-    getline(cin, str);
-    cout << endl;
-
-    try {
-        opt = stoi(str);
-    } catch (invalid_argument) {
-        cerr << "ERRO: Entrada inválida, tente outra vez";
-        cout << endl;
-        mainMenuSelect(agency, clients, packs);
-    }
-
-    switch (opt) {
-        case 0:
-            cout << "Guardar alterações (S/N): ";
-            getline(cin, str); // TODO Implement saving to file
-            break;
-        // TODO implement purchasing
-        // TODO implement sales report
-        case 3:
-            clientsMenu(agency, clients, packs);
-            break;
-        case 4:
-            packsMenu(agency, clients, packs);
-            break;
-        case 5:
-            agencyMenu(agency, clients, packs);
-            break;
-        default:
-            cerr << "ERRO: Opção inválida, tente outra vez";
-            cout << endl;
-            mainMenuSelect(agency, clients, packs);
-            break;
-    }
+    do {
+        getOption(opt);
+        valid = true;
+        switch (opt) {
+            case 0:
+                cout << "Guardar alterações (S/N): ";
+                getline(cin, str); // TODO Implement saving to file
+                break;
+            // TODO implement purchasing
+            // TODO implement sales report
+            case 3:
+                clientsMenu(agency, clients, packs);
+                break;
+            case 4:
+                packsMenu(agency, clients, packs);
+                break;
+            case 5:
+                agencyMenu(agency, clients, packs);
+                break;
+            default:
+                valid = false;
+                cinERR("ERRO: Opção não existe, tente outra vez");
+                break;
+        }
+    } while (!valid);
 }
 
 void mainMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
@@ -417,45 +437,37 @@ void mainMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
 
 // Clients menu functions
 void clientsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
-    string str;
+    string str = "";
     int opt;
+    bool valid;
 
-    cout << endl << "Opção: ";
-    getline(cin, str);
-    cout << endl;
-
-    try {
-        opt = stoi(str);
-    } catch (invalid_argument) {
-        cerr << "ERRO: Entrada inválida, tente outra vez";
-        cout << endl;
-        clientsMenuSelect(agency, clients, packs);
-    }
-
-    switch (opt) {
-        case 0:
-            mainMenu(agency, clients, packs);
-            break;
-        case 1:
-            showClientVect(clients);
-            cout << endl << "ENTER para voltar atrás";
-            getline(cin, str);
-            clientsMenu(agency, clients, packs);
-            break;
-        // TODO search for and edit client
-        case 3:
-            addClient(clients);
-            cout << endl << "ENTER para voltar atrás";
-            getline(cin, str);
-            clientsMenu(agency, clients, packs);
-            break;
-        // TODO delet client
-        default:
-            cerr << "ERRO: Opção inválida, tente outra vez";
-            cout << endl;
-            clientsMenuSelect(agency, clients, packs);
-            break;
-    }
+    do {
+        getOption(opt);
+        valid = true;
+        switch (opt) {
+            case 0:
+                mainMenu(agency, clients, packs);
+                break;
+            case 1:
+                showClientVect(clients);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                clientsMenu(agency, clients, packs);
+                break;
+            // TODO search for and edit client
+            case 3:
+                addClient(clients);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                clientsMenu(agency, clients, packs);
+                break;
+            // TODO delet client
+            default:
+                valid = false;
+                cinERR("ERRO: Opção inválida, tente outra vez");
+                break;
+        }
+    } while (!valid);
 }
 
 void clientsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
@@ -476,43 +488,36 @@ void clientsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
 void packsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     string str;
     int opt;
+    bool valid;
 
-    cout << endl << "Opção: ";
-    getline(cin, str);
-    cout << endl;
+    do {
+        getOption(opt);
+        valid = true;
+        switch (opt) {
+            case 0:
+                mainMenu(agency, clients, packs);
+                break;
+            case 1:
+                showPackVect(packs);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                packsMenu(agency, clients, packs);
+                break;
+            // TODO search for and edit packs
+            case 3:
+                addPack(packs);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                packsMenu(agency, clients, packs);
+                break;
+            // TODO delet pack
+            default:
+                valid = false;
+                cinERR("ERRO: Opção inválida, tente outra vez");
+                break;
+        }
+    } while (!valid);
 
-    try {
-        opt = stoi(str);
-    } catch (invalid_argument) {
-        cerr << "ERRO: Entrada inválida, tente outra vez";
-        cout << endl;
-        packsMenuSelect(agency, clients, packs);
-    }
-
-    switch (opt) {
-        case 0:
-            mainMenu(agency, clients, packs);
-            break;
-        case 1:
-            showPackVect(packs);
-            cout << endl << "ENTER para voltar atrás";
-            getline(cin, str);
-            packsMenu(agency, clients, packs);
-            break;
-        // TODO search for and edit packs
-        case 3:
-            addPack(packs);
-            cout << endl << "ENTER para voltar atrás";
-            getline(cin, str);
-            packsMenu(agency, clients, packs);
-            break;
-        // TODO delet pack
-        default:
-            cerr << "ERRO: Opção inválida, tente outra vez";
-            cout << endl;
-            packsMenuSelect(agency, clients, packs);
-            break;
-    }
 }
 
 void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
@@ -533,36 +538,29 @@ void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
 void agencyMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     string str;
     int opt;
+    bool valid;
 
-    cout << endl << "Opção: ";
-    getline(cin, str);
-    cout << endl;
+    do {
+        getOption(opt);
+        valid = true;
+        switch (opt) {
+            case 0:
+                mainMenu(agency, clients, packs);
+                break;
+            case 1:
+                showAgency(agency);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                agencyMenu(agency, clients, packs);
+                break;
+            // TODO edit agency function
+            default:
+                cinERR("ERRO: Opção inválida, tente outra vez");
+                agencyMenuSelect(agency, clients, packs);
+                break;
+        }
+    } while (!valid);
 
-    try {
-        opt = stoi(str);
-    } catch (invalid_argument) {
-        cerr << "ERRO: Entrada inválida, tente outra vez";
-        cout << endl;
-        agencyMenuSelect(agency, clients, packs);
-    }
-
-    switch (opt) {
-        case 0:
-            mainMenu(agency, clients, packs);
-            break;
-        case 1:
-            showAgency(agency);
-            cout << endl << "ENTER para voltar atrás";
-            getline(cin, str);
-            agencyMenu(agency, clients, packs);
-            break;
-        // TODO edit agency function
-        default:
-            cerr << "ERRO: Opção inválida, tente outra vez";
-            cout << endl;
-            agencyMenuSelect(agency, clients, packs);
-            break;
-    }
 }
 
 void agencyMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
