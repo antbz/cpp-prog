@@ -13,6 +13,7 @@
   <component name="ChangeListManager">
     <list default="true" id="aff3558f-6e59-4057-b52f-a1b324aa87f2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/NiceHolidays.dir/main.cpp.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -28,25 +29,30 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="71" column="65" selection-start-line="71" selection-start-column="65" selection-end-line="71" selection-end-column="65" />
+            <state relative-caret-position="327">
+              <caret line="111" column="88" selection-start-line="111" selection-start-column="88" selection-end-line="111" selection-end-column="88" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#137#525#0" />
                 <element signature="e#527#597#0" />
                 <element signature="e#527#708#0" />
                 <element signature="e#1339#1776#0" />
+                <element signature="e#1775#1812#0" />
                 <element signature="e#1008#1075#1" />
                 <element signature="e#1078#1266#0" />
                 <element signature="e#1293#1378#1" />
-                <element signature="e#1381#1661#0" />
                 <element signature="e#1688#1754#1" />
                 <element signature="e#1757#2302#0" />
                 <element signature="e#3142#3184#0" />
-                <element signature="e#2304#2576#0" />
                 <element signature="e#2600#2740#1" />
                 <element signature="e#2756#4188#0" />
                 <element signature="e#6037#7440#0" />
+                <element signature="e#4190#4908#0" />
+                <element signature="e#9305#9827#0" />
+                <element signature="e#11592#11685#0" />
+                <element signature="e#11189#11276#0" />
+                <element signature="e#13035#14057#0" />
+                <element signature="e#11799#12342#0" />
               </folding>
             </state>
           </provider>
@@ -55,7 +61,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/packs.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state>
               <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
             </state>
           </provider>
@@ -64,7 +70,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
+            <state>
               <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
             </state>
           </provider>
@@ -73,7 +79,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/agency.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
+            <state>
               <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
             </state>
           </provider>
@@ -133,6 +139,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -171,12 +178,12 @@
       <workItem from="1553775438148" duration="2840000" />
       <workItem from="1553850279615" duration="3619000" />
       <workItem from="1553868491860" duration="8818000" />
-      <workItem from="1553976290895" duration="7617000" />
+      <workItem from="1553976290895" duration="15414000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22894000" />
+    <option name="totallyTimeSpent" value="30691000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -231,46 +238,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="71" column="65" selection-start-line="71" selection-start-column="65" selection-end-line="71" selection-end-column="65" />
+        <state relative-caret-position="327">
+          <caret line="111" column="88" selection-start-line="111" selection-start-column="88" selection-end-line="111" selection-end-column="88" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#137#525#0" />
             <element signature="e#527#597#0" />
             <element signature="e#527#708#0" />
             <element signature="e#1339#1776#0" />
+            <element signature="e#1775#1812#0" />
             <element signature="e#1008#1075#1" />
             <element signature="e#1078#1266#0" />
             <element signature="e#1293#1378#1" />
-            <element signature="e#1381#1661#0" />
             <element signature="e#1688#1754#1" />
             <element signature="e#1757#2302#0" />
             <element signature="e#3142#3184#0" />
-            <element signature="e#2304#2576#0" />
             <element signature="e#2600#2740#1" />
             <element signature="e#2756#4188#0" />
             <element signature="e#6037#7440#0" />
+            <element signature="e#4190#4908#0" />
+            <element signature="e#9305#9827#0" />
+            <element signature="e#11592#11685#0" />
+            <element signature="e#11189#11276#0" />
+            <element signature="e#13035#14057#0" />
+            <element signature="e#11799#12342#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/packs.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state>
           <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
+        <state>
           <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/agency.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
+        <state>
           <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
         </state>
       </provider>
