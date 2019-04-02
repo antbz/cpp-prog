@@ -8,6 +8,8 @@
 using namespace std;
 
 // Diplay functions
+bool isNumeric(const string &str);
+
 string trim(string &str) {
     auto str_init = str.find_first_not_of(" \t");
     if (str_init == string::npos)
@@ -34,14 +36,18 @@ vector<string> strToVect(const string &str, char delim = ' ') {
 }
 
 vector<int> strToIntVect(const string &str, char delim = ' ') {
-    // Splits a string into a vector of integers
+    // Splits a string into a vector of UNSIGNED integers
     vector<int> result;
     string tmp;
     // Create stream from string
     istringstream ss(str);
     // Grab the elements from the stream, separated by delim
     while (getline(ss, tmp, delim)) {
-        result.push_back(stoi(tmp));
+        tmp = trim(tmp);
+        if (isNumeric(tmp))
+            result.push_back(stoi(tmp));
+        else
+            throw 100;
         // Skip whitespace
         ss >> ws;
     }
@@ -72,7 +78,7 @@ void showIntVect(vector<int> &v, int spos = 0, int epos = -1, bool oneline = fal
     if (oneline) {
         for (int i = spos; i < epos; i++)
             if (i == epos - 1)
-                cout << v[i] << endl;
+                cout << v[i];
             else
                 cout << v[i] << sep;
     }
@@ -220,6 +226,7 @@ void grabAddress(Address &address, bool edit = false) {
     }
 }
 
+// NIF handling
 void grabNIF(string &nif, bool edit = false) {
     string str;
     while (true) {
@@ -243,6 +250,60 @@ void grabNIF(string &nif, bool edit = false) {
             }
         } catch (int e) {
             cinERR("ERRO: Introduza um NIF válido");
+            cout << endl;
+        }
+    }
+}
+
+// Housekeeping
+void grabHousehold(string &hhold, bool edit = false) {
+    string str;
+    while (true) {
+        try {
+            if (edit) {
+                cout << setw(4) << left << '|' << "Nº de pessoas no agregado (" << hhold << "): ";
+                getline(cin, str);
+                if (str != "") {
+                    if (!isNumeric(str))
+                        throw 100;
+                    hhold = str;
+                }
+                break;
+            } else {
+                cout << "Nº de pessoas no agregado: ";
+                getline(cin, str);
+                if (!isNumeric(str))
+                    throw 100;
+                hhold = str;
+                break;
+            }
+        } catch (int e) {
+            cinERR("ERRO: Introduza um número válido");
+            cout << endl;
+        }
+    }
+}
+
+// Pack handling
+void grabPacks(vector<int> &packs, bool edit = false) {
+    string str; // TODO Verify if pack is in packs file
+    while (true) {
+        try {
+            if (edit) {
+                cout << setw(4) << left << '|' << "Pacotes adquiridos (";
+                showIntVect(packs);
+                cout << "): ";
+                getline(cin, str);
+                packs = strToIntVect(str, ',');
+                break;
+            } else {
+                cout << "Pacotes adquiridos: ";
+                getline(cin, str);
+                packs = strToIntVect(str, ',');
+                break;
+            }
+        } catch (int e) {
+            cinERR("ERRO: Introduza pacotes separados por ,");
             cout << endl;
         }
     }
@@ -366,27 +427,6 @@ void readClients(vector<Client> &clients, string f_name) {
     clients_file.close();
 }
 
-void addClient(vector<Client> &clients) {
-    string str;
-
-    // Adds new client to vector
-    clients.push_back(Client());
-
-    // Grabs the client info from cin
-    cout << "Nome do cliente: ";
-    getline(cin, clients.back().name);
-    // Grabs NIF from cin, checking errors;
-    grabNIF(clients.back().nif);
-    cout << "Nº de pessoas no agregado: ";
-    getline(cin, clients.back().household);
-    // Address extraction
-    grabAddress(clients.back().address);
-    cout << "Pacotes adquiridos: ";
-    getline(cin, str);
-    clients.back().packs = strToIntVect(str, ';'); // TODO Verify if pack is in packs file
-
-}
-
 void showClientVect(vector<Client> &v) {
     cout << setw(2) << ' ' << "Clientes: " << endl;
     for (int i = 0; i < v.size(); i++) {
@@ -397,9 +437,51 @@ void showClientVect(vector<Client> &v) {
         cout << setw(4) << left << '|' << "Morada: " << v[i].address.display_format << endl;
         cout << setw(4) << left << '|' << "Pacotes adquiridos: ";
         showIntVect(v[i].packs, 0, -1, true);
+        cout << endl;
         cout << "\\_" << endl;
     }
 }
+
+bool clientsModify = false;
+
+void writeClients(vector<Client> &clients, string f_name) {
+    ofstream clients_file(f_name);
+    for (int i = 0; i < clients.size(); i++) {
+        clients_file << clients[i].name << endl;
+        clients_file << clients[i].nif << endl;
+        clients_file << clients[i].household << endl;
+        clients_file << clients[i].address.file_format << endl;
+        for (int j = 0; j < clients[i].packs.size(); j++){
+            if (j == clients[i].packs.size() - 1)
+                clients_file << clients[i].packs[j] << endl;
+            else
+                clients_file << clients[i].packs[j] << "; ";
+        }
+        if (i != clients.size() - 1)
+            clients_file << "::::::::::" << endl;
+    }
+    clients_file.close();
+}
+
+void addClient(vector<Client> &clients) {
+    clientsModify = true;
+    string str;
+
+    // Adds new client to vector
+    clients.push_back(Client());
+
+    // Grabs the client info from cin
+    cout << "Nome do cliente: ";
+    getline(cin, clients.back().name);
+    // Grabs NIF from cin, checking errors;
+    grabNIF(clients.back().nif);
+    // Grabs household size from cin, checking errors
+    grabHousehold(clients.back().household);
+    // Address extraction
+    grabAddress(clients.back().address);
+    grabPacks(clients.back().packs);
+}
+
 
 // Pack file function
 struct Pack {
@@ -462,56 +544,55 @@ void readPacks(vector<Pack> &p, string f_name) {
     p_file.close();
 }
 
-void addPack(vector<Pack> &p) {
+void addPack(vector<Pack> &packs) {
     string str;
     vector<string> vect;
 
     // Adds new pack to vector
-    p.push_back(Pack());
+    packs.push_back(Pack());
 
     // Gets pack id
-    cout << "Pack ID: ";
-    getline(cin, str); // TODO check if ID is not in packs already
-    p.back().id = stoi(str);
-    lastID = p.back().id;
+    lastID++;
+    packs.back().id = lastID;
+    cout << "Pack ID: " << lastID << endl;
 
     // Gets destinations
     cout << "Destinos (principal, seguido de - e adicionais): ";
     getline(cin, str);
-    p.back().destinations = strToVect(str, '-');
-    p.back().mainDest = p.back().destinations[0];
+    packs.back().destinations = strToVect(str, '-');
+    packs.back().mainDest = packs.back().destinations[0];
     // Split the smaller destinations, if they exist
-    if (p.back().destinations.size() > 1) {
-        vect = strToVect(p.back().destinations[1], ',');
-        p.back().destinations.insert(p.back().destinations.end() - 1, vect.begin(), vect.end());
-        p.back().destinations.pop_back();
+    if (packs.back().destinations.size() > 1) {
+        vect = strToVect(packs.back().destinations[1], ',');
+        packs.back().destinations.insert(packs.back().destinations.end() - 1, vect.begin(), vect.end());
+        packs.back().destinations.pop_back();
     }
 
     // Gets start date
-    while (!p.back().startDate.valid) {
+    while (!packs.back().startDate.valid) {
         cout << "Data de início: ";
-        getline(cin, p.back().startDate.full);
-        extractDate(p.back().startDate);
+        getline(cin, packs.back().startDate.full);
+        extractDate(packs.back().startDate);
     }
     // Gets end date
-    while (!p.back().endDate.valid) {
+    while (!packs.back().endDate.valid) {
         cout << "Data de fim: ";
-        getline(cin, p.back().endDate.full);
-        extractDate(p.back().endDate);
+        getline(cin, packs.back().endDate.full);
+        extractDate(packs.back().endDate);
     }
 
     // Get price
     cout << "Preço por pessoa: ";
     getline(cin, str);
-    p.back().price = stoi(str);
+    packs.back().price = stoi(str);
 
     // Get seats
     cout << "Nº de vagas: ";
     getline(cin, str);
-    p.back().totalSeats = stoi(str);
+    packs.back().totalSeats = stoi(str);
     cout << "Vagas vendidas: ";
     getline(cin, str);
-    p.back().soldSeats = stoi(str);
+    packs.back().soldSeats = stoi(str);
 }
 
 void showPackVect(vector<Pack> &v) {
@@ -758,5 +839,7 @@ int main() {
     // Testing area
     if (agencyModify && save)
         writeAgency(agency, "agency.txt");
+    if (clientsModify && save)
+        writeClients(clients, agency.clientsFileName);
     return 0;
 }

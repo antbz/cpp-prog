@@ -2,16 +2,22 @@ Rui Manuel
 234987156
 4
 Rua Sem Fim / 200 / 5Esq /1200-001 / Lisboa
-10 ; 36 ; 2
+10; 36; 2
 ::::::::::
 Belmiro Miguel
 111987666
 2
 Avenida dos Grilos / 100 / - /2300-101 / Coimbra
-100 ; 136 ; 20
+100; 136; 20
 ::::::::::
 António Manuel
 759846351
 9
 Rua da Felicidade / 20 / - /4788-955 / Vilar
 59; 87
+::::::::::
+Rui
+123456789
+2
+Meio / 2 / 3esq / 2200-989 / Ola
+1

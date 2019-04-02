@@ -18,9 +18,7 @@
       <change beforePath="$PROJECT_DIR$/../../Ficha/3/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/3/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Ficha/3/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/3/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/NiceHolidays.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/NiceHolidays.dir/main.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/NiceHolidays" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/NiceHolidays" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/NiceHolidays.dir/main.cpp.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -50,23 +48,27 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="222" selection-start-line="222" selection-end-line="222" />
+            <state relative-caret-position="-802">
+              <caret line="287" column="54" selection-start-line="287" selection-start-column="54" selection-end-line="287" selection-end-column="54" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#137#454#0" />
                 <element signature="e#456#878#0" />
-                <element signature="e#880#1300#0" />
+                <element signature="e#916#1437#0" />
                 <element signature="e#1302#1883#0" />
                 <element signature="e#1885#2419#0" />
                 <element signature="e#2421#2592#0" />
                 <element signature="e#2594#2757#0" />
                 <element signature="e#2759#3219#0" />
+                <element signature="e#3221#3257#0" />
                 <element signature="e#3238#3329#1" />
                 <element signature="e#3332#4547#0" />
                 <element signature="e#4569#4740#1" />
                 <element signature="e#4743#5447#0" />
+                <element signature="e#5449#5977#0" />
                 <element signature="e#6345#6398#0" />
+                <element signature="e#7363#8195#0" />
+                <element signature="e#8335#8409#0" />
                 <element signature="e#5922#6038#1" />
                 <element signature="e#6041#6444#0" />
                 <element signature="e#6474#6870#0" />
@@ -74,7 +76,9 @@
                 <element signature="e#7438#8439#0" />
                 <element signature="e#8466#8560#1" />
                 <element signature="e#8563#9292#0" />
-                <element signature="e#9897#10546#0" />
+                <element signature="e#13144#13815#0" />
+                <element signature="e#13327#13393#0" />
+                <element signature="e#11871#12612#0" />
                 <element signature="e#10570#10710#1" />
                 <element signature="e#10726#12145#0" />
                 <element signature="e#12147#13667#0" />
@@ -87,7 +91,17 @@
                 <element signature="e#19602#20182#0" />
                 <element signature="e#20290#21060#1" />
                 <element signature="e#20981#21429#0" />
+                <element signature="e#24376#24855#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="mock:///NiceHolidays (disassembly)">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -104,8 +118,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+            <state relative-caret-position="418">
+              <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -128,6 +142,8 @@
       <find>grabAdd</find>
       <find>extract</find>
       <find>extractAddress</find>
+      <find>strToInt</find>
+      <find>showIn</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -140,9 +156,9 @@
         <option value="$PROJECT_DIR$/show_stuff.cpp" />
         <option value="$PROJECT_DIR$/show_stuff.h" />
         <option value="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clients.txt" />
-        <option value="$PROJECT_DIR$/cmake-build-debug/clients.txt" />
         <option value="$PROJECT_DIR$/cmake-build-debug/packs.txt" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.cpp" />
+        <option value="$PROJECT_DIR$/cmake-build-debug/clients.txt" />
         <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
@@ -228,12 +244,12 @@
       <workItem from="1554163558122" duration="126000" />
       <workItem from="1554164080132" duration="622000" />
       <workItem from="1554201627904" duration="3557000" />
-      <workItem from="1554214940482" duration="5415000" />
+      <workItem from="1554214940482" duration="12252000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52682000" />
+    <option name="totallyTimeSpent" value="59519000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -290,6 +306,13 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.cpp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/agency.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="46" lean-forward="true" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/packs.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -299,37 +322,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/agency.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="46" lean-forward="true" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        <state relative-caret-position="418">
+          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="222" selection-start-line="222" selection-end-line="222" />
+        <state relative-caret-position="-802">
+          <caret line="287" column="54" selection-start-line="287" selection-start-column="54" selection-end-line="287" selection-end-column="54" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#137#454#0" />
             <element signature="e#456#878#0" />
-            <element signature="e#880#1300#0" />
+            <element signature="e#916#1437#0" />
             <element signature="e#1302#1883#0" />
             <element signature="e#1885#2419#0" />
             <element signature="e#2421#2592#0" />
             <element signature="e#2594#2757#0" />
             <element signature="e#2759#3219#0" />
+            <element signature="e#3221#3257#0" />
             <element signature="e#3238#3329#1" />
             <element signature="e#3332#4547#0" />
             <element signature="e#4569#4740#1" />
             <element signature="e#4743#5447#0" />
+            <element signature="e#5449#5977#0" />
             <element signature="e#6345#6398#0" />
+            <element signature="e#7363#8195#0" />
+            <element signature="e#8335#8409#0" />
             <element signature="e#5922#6038#1" />
             <element signature="e#6041#6444#0" />
             <element signature="e#6474#6870#0" />
@@ -337,7 +357,9 @@
             <element signature="e#7438#8439#0" />
             <element signature="e#8466#8560#1" />
             <element signature="e#8563#9292#0" />
-            <element signature="e#9897#10546#0" />
+            <element signature="e#13144#13815#0" />
+            <element signature="e#13327#13393#0" />
+            <element signature="e#11871#12612#0" />
             <element signature="e#10570#10710#1" />
             <element signature="e#10726#12145#0" />
             <element signature="e#12147#13667#0" />
@@ -350,6 +372,7 @@
             <element signature="e#19602#20182#0" />
             <element signature="e#20290#21060#1" />
             <element signature="e#20981#21429#0" />
+            <element signature="e#24376#24855#0" />
           </folding>
         </state>
       </provider>
