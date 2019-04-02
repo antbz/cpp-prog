@@ -8,6 +8,16 @@
 using namespace std;
 
 // Diplay functions
+string trim(string &str) {
+    auto str_init = str.find_first_not_of(" \t");
+    if (str_init == string::npos)
+        return ""; // String is all whitespace
+    auto str_end = str.find_last_not_of(" \t");
+    auto str_range = str_end - str_init + 1;
+
+    return str.substr(str_init, str_range);
+}
+
 vector<string> strToVect(const string &str, char delim = ' ') {
     // Splits a string into a vector of strings
     vector<string> result;
@@ -16,7 +26,7 @@ vector<string> strToVect(const string &str, char delim = ' ') {
     istringstream ss(str);
     // Grab the elements from the stream, separated by delim
     while (getline(ss, tmp, delim)) {
-        result.push_back(tmp);
+        result.push_back(trim(tmp));
         // Skip whitespace
         ss >> ws;
     }
@@ -43,7 +53,7 @@ void showStrVect(const vector<string> &v, int spos = 0, long epos = -1, bool one
     if (epos == -1)
         epos = v.size();
     if (oneline) {
-        for (int i = spos; i < epos; i++)
+        for (int i = spos; i < epos; i++) // TODO use size_t instead of int
             if (i == epos - 1)
                 cout << v[i] << endl;
             else
@@ -77,9 +87,11 @@ void line(int size, char ch = '-') {
     cout << setfill(ch) << setw(size) << "" << endl << setfill(' ');
 }
 
+// Input functions
 void cinERR(string message) {
-    // Outputs an error message and clears cin flags
+    // Outputs an error message and clears cin and flags
     cerr << message;
+    cout << endl;
     cin.clear();
 }
 
@@ -101,18 +113,57 @@ void getOption(int &dest, string message = "Opção: ") {
     }
 }
 
+bool isNumeric(const string &str) {
+    if (str.empty())
+        return false;
+    for (int i = 0; i < str.length(); i++)
+        if (!isdigit(str[i]))
+            return false;
+    return true;
+}
+
 // Date handling
 struct Date {
     unsigned int day, month, year;
     string full;
+    bool valid = false;
 };
 
-void extractDate(Date &date) {
+void extractDate(Date &date, bool file = false) {
     vector<string> temp;
     temp = strToVect(date.full, '/');
-    date.day = stoi(temp[2]);
-    date.month = stoi(temp[1]);
-    date.year = stoi(temp[0]);
+    try {
+        if (file) {
+            if (temp[0].length() != 4 || temp[1].length() != 2 || temp[2].length() != 2)
+                throw 2;
+            date.day = stoi(temp[2]);
+            date.month = stoi(temp[1]);
+            date.year = stoi(temp[0]);
+        } else {
+            if (temp[0].length() != 2 || temp[1].length() != 2 || temp[2].length() != 4)
+                throw 2;
+            date.day = stoi(temp[0]);
+            date.month = stoi(temp[1]);
+            date.year = stoi(temp[2]);
+        }
+        if (date.day > 31)
+            throw 31;
+        if (date.day > 29 && date.month == 2)
+            throw 29;
+        if (date.month > 12)
+            throw 12;
+        if (date.day <= 0 || date.month <= 0 || date.year <= 0)
+            throw 0;
+        date.valid = true;
+    } catch(invalid_argument) {
+        date.valid = false;
+        cout << "string input";
+        cinERR("Introduza uma data válida no formato DD/MM/YYYY");
+    } catch (int &e) {
+        date.valid = false;
+        cout << e;
+        cinERR("Introduza uma data válida no formato DD/MM/YYYY");
+    }
 }
 
 // Address handling
@@ -142,13 +193,25 @@ void extractAddress(Address &address, bool file = true) {
     address.town = temp[4];
 }
 
-void grabAddress(Address &address) {
+void grabAddress(Address &address, bool edit = false) {
+    string str;
     while (true) {
         try {
-            cout << "Morada: ";
-            getline(cin, address.display_format);
-            extractAddress(address, false);
-            break;
+            if (edit) {
+                cout << setw(4) << left << '|' << "Morada (" << address.display_format << "): ";
+                getline(cin, str);
+                if (str != "") {
+                    address.display_format = str;
+                    extractAddress(address, false);
+                    str = "";
+                }
+                break;
+            } else {
+                cout << "Morada: ";
+                getline(cin, address.display_format);
+                extractAddress(address, false);
+                break;
+            }
         } catch (int e) {
             cinERR("ERRO: Introduza a morada no formato: rua, número da porta, número do andar, código postal, "
                     "localidade, sem omissões");
@@ -157,9 +220,37 @@ void grabAddress(Address &address) {
     }
 }
 
+void grabNIF(string &nif, bool edit = false) {
+    string str;
+    while (true) {
+        try {
+            if (edit) {
+                cout << setw(4) << left << '|' << "NIF (" << nif << "): ";
+                getline(cin, str);
+                if (str != "") {
+                    if (!(str.length() == 9) || !isNumeric(str))
+                        throw 100;
+                    nif = str;
+                }
+                break;
+            } else {
+                cout << "NIF: ";
+                getline(cin, str);
+                if (!(str.length() == 9) || !isNumeric(str))
+                    throw 100;
+                nif = str;
+                break;
+            }
+        } catch (int e) {
+            cinERR("ERRO: Introduza um NIF válido");
+            cout << endl;
+        }
+    }
+}
+
 // Agency file functions
 struct Agency {
-    string name, nif, url, clientsFileName, packsFileName;
+    string name, nif, url, clientsFileName, packsFileName; // TODO verify nif
     Address address;
 };
 
@@ -175,6 +266,19 @@ void openAgency(Agency &agency) {
     agency_file.close();
 }
 
+bool agencyModify = false;
+
+void writeAgency(Agency &agency, string agency_f_name) {
+    ofstream agency_file("agency.txt");
+    agency_file << agency.name << endl;
+    agency_file << agency.nif << endl;
+    agency_file << agency.url << endl;
+    agency_file << agency.address.file_format << endl;
+    agency_file << agency.clientsFileName << endl;
+    agency_file << agency.packsFileName << endl;
+    agency_file.close();
+}
+
 void showAgency(Agency &agency) {
     cout << setw(2) << ' ' << agency.name << endl;
     cout << "/" << endl;
@@ -183,6 +287,51 @@ void showAgency(Agency &agency) {
     cout << setw(4) << left << '|' << "Morada: " << agency.address.display_format << endl;
     cout << setw(4) << left << '|' << "Ficheiro de clientes: " << agency.clientsFileName << endl;
     cout << setw(4) << left << '|' << "Ficheiro de pacotes: " << agency.packsFileName << endl;
+    cout << "\\_" << endl;
+}
+
+void editAgency(Agency &agency) {
+    agencyModify = true;
+    string str = "";
+    cout << setw(2) << ' ' << "A EDITAR AGÊNCIA" << endl;
+    cout << "/" << endl;
+
+    cout << setw(4) << left << '|' << "Nome (" << agency.name << "): ";
+    getline(cin, str);
+    if (str != "") {
+        agency.name = str;
+        str = "";
+    }
+
+    cout << setw(4) << left << '|' << "NIF (" << agency.nif << "): ";
+    getline(cin, str);
+    if (str != "") {
+        agency.nif = str;
+        str = "";
+    }
+
+    cout << setw(4) << left << '|' << "Website (" << agency.url << "): ";
+    getline(cin, str);
+    if (str != "") {
+        agency.url = str;
+        str = "";
+    }
+
+    grabAddress(agency.address, true);
+
+    cout << setw(4) << left << '|' << "Ficheiro de clientes (" << agency.clientsFileName << "): ";
+    getline(cin, str);
+    if (str != "") {
+        agency.clientsFileName = str;
+        str = "";
+    }
+
+    cout << setw(4) << left << '|' << "Ficheiro de pacotes (" << agency.packsFileName << "): ";
+    getline(cin, str);
+    if (str != "") {
+        agency.packsFileName = str;
+        str = "";
+    }
     cout << "\\_" << endl;
 }
 
@@ -226,8 +375,8 @@ void addClient(vector<Client> &clients) {
     // Grabs the client info from cin
     cout << "Nome do cliente: ";
     getline(cin, clients.back().name);
-    cout << "NIF: ";
-    getline(cin, clients.back().nif);
+    // Grabs NIF from cin, checking errors;
+    grabNIF(clients.back().nif);
     cout << "Nº de pessoas no agregado: ";
     getline(cin, clients.back().household);
     // Address extraction
@@ -291,10 +440,10 @@ void readPacks(vector<Pack> &p, string f_name) {
 
         // Gets start date
         getline(p_file, p.back().startDate.full);
-        extractDate(p.back().startDate);
+        extractDate(p.back().startDate, true);
         // Gets end date
         getline(p_file, p.back().endDate.full);
-        extractDate(p.back().endDate);
+        extractDate(p.back().endDate, true);
 
         // Get price
         getline(p_file, str);
@@ -339,13 +488,17 @@ void addPack(vector<Pack> &p) {
     }
 
     // Gets start date
-    cout << "Data de início: ";
-    getline(cin, p.back().startDate.full); // TODO fix date formatting
-    extractDate(p.back().startDate);
+    while (!p.back().startDate.valid) {
+        cout << "Data de início: ";
+        getline(cin, p.back().startDate.full);
+        extractDate(p.back().startDate);
+    }
     // Gets end date
-    cout << "Data de fim: ";
-    getline(cin, p.back().endDate.full);
-    extractDate(p.back().endDate);
+    while (!p.back().endDate.valid) {
+        cout << "Data de fim: ";
+        getline(cin, p.back().endDate.full);
+        extractDate(p.back().endDate);
+    }
 
     // Get price
     cout << "Preço por pessoa: ";
@@ -388,6 +541,8 @@ void clientsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void agencyMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 
+bool save = true;
+
 void mainMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     string str = "";
     int opt;
@@ -398,8 +553,13 @@ void mainMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs
         valid = true;
         switch (opt) {
             case 0:
-                cout << "Guardar alterações (S/N): ";
+                cout << "Guardar alterações (S/n): ";
                 getline(cin, str); // TODO Implement saving to file
+                if (str == "N" || str == "n") {
+                    save = false;
+                    cout << "Fechado sem guardar" << endl;
+                } else
+                    cout << "Alterações guardadas" << endl;
                 break;
             // TODO implement purchasing
             // TODO implement sales report
@@ -553,7 +713,12 @@ void agencyMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &pac
                 getline(cin, str);
                 agencyMenu(agency, clients, packs);
                 break;
-            // TODO edit agency function
+            case 2:
+                editAgency(agency);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                agencyMenu(agency, clients, packs);
+                break;
             default:
                 cinERR("ERRO: Opção inválida, tente outra vez");
                 agencyMenuSelect(agency, clients, packs);
@@ -587,10 +752,11 @@ int main() {
     readPacks(packs, agency.packsFileName);
 
     // Menu
-    // TODO Clear cin after input errors
     cout << "* NiceHolidays GEST v1.0 BETA *" << endl;
     mainMenu(agency, clients, packs);
 
     // Testing area
+    if (agencyModify && save)
+        writeAgency(agency, "agency.txt");
     return 0;
 }
