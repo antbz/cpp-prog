@@ -136,9 +136,10 @@ struct Date {
 };
 
 void extractDate(Date &date, bool file = false) {
-    vector<string> temp;
-    temp = strToVect(date.full, '/');
     try {
+        if (date.full.empty()) throw 100;
+        vector<string> temp;
+        temp = strToVect(date.full, '/');
         if (file) {
             if (temp[0].length() != 4 || temp[1].length() != 2 || temp[2].length() != 2)
                 throw 2;
@@ -163,11 +164,9 @@ void extractDate(Date &date, bool file = false) {
         date.valid = true;
     } catch(invalid_argument) {
         date.valid = false;
-        cout << "string input";
         cinERR("Introduza uma data válida no formato DD/MM/YYYY");
     } catch (int &e) {
         date.valid = false;
-        cout << e;
         cinERR("Introduza uma data válida no formato DD/MM/YYYY");
     }
 }
@@ -551,22 +550,33 @@ void addPack(vector<Pack> &packs) {
     // Adds new pack to vector
     packs.push_back(Pack());
 
-    // Gets pack id
+    // Sets pack id
     lastID++;
     packs.back().id = lastID;
     cout << "Pack ID: " << lastID << endl;
 
     // Gets destinations
-    cout << "Destinos (principal, seguido de - e adicionais): ";
-    getline(cin, str);
-    packs.back().destinations = strToVect(str, '-');
-    packs.back().mainDest = packs.back().destinations[0];
-    // Split the smaller destinations, if they exist
-    if (packs.back().destinations.size() > 1) {
-        vect = strToVect(packs.back().destinations[1], ',');
-        packs.back().destinations.insert(packs.back().destinations.end() - 1, vect.begin(), vect.end());
-        packs.back().destinations.pop_back();
+    while (true) {
+        try {
+            cout << "Destinos (principal, seguido de - e adicionais): ";
+            getline(cin, str);
+            // If user inputs an empty line, throw exception
+            if (str.empty()) throw 100;
+            // Start parsing the input
+            packs.back().destinations = strToVect(str, '-');
+            packs.back().mainDest = packs.back().destinations[0];
+            // Split the other destinations, if they exist
+            if (packs.back().destinations.size() > 1) {
+                vect = strToVect(packs.back().destinations[1], ',');
+                packs.back().destinations.insert(packs.back().destinations.end() - 1, vect.begin(), vect.end());
+                packs.back().destinations.pop_back();
+            }
+            break;
+        } catch (int &e) {
+            cinERR("ERRO: Entrada inválida");
+        }
     }
+
 
     // Gets start date
     while (!packs.back().startDate.valid) {
@@ -582,17 +592,41 @@ void addPack(vector<Pack> &packs) {
     }
 
     // Get price
-    cout << "Preço por pessoa: ";
-    getline(cin, str);
-    packs.back().price = stoi(str);
+    while (true) {
+        try {
+            cout << "Preço por pessoa: ";
+            getline(cin, str);
+            if (!isNumeric(str)) throw 100;
+            packs.back().price = stoi(str);
+            break;
+        } catch (int &e) {
+            cinERR("ERRO: Entrada inválida");
+        }
+    }
 
     // Get seats
-    cout << "Nº de vagas: ";
-    getline(cin, str);
-    packs.back().totalSeats = stoi(str);
-    cout << "Vagas vendidas: ";
-    getline(cin, str);
-    packs.back().soldSeats = stoi(str);
+    while (true) {
+        try {
+            cout << "Nº de vagas: ";
+            getline(cin, str);
+            if (!isNumeric(str)) throw 100;
+            packs.back().totalSeats = stoi(str);
+            break;
+        } catch (int &e) {
+            cinERR("ERRO: Entrada inválida");
+        }
+    }
+    while (true) {
+        try {
+            cout << "Vagas vendidas: ";
+            getline(cin, str);
+            if (!isNumeric(str)) throw 100;
+            packs.back().soldSeats = stoi(str);
+            break;
+        } catch (int &e) {
+            cinERR("ERRO: Entrada inválida");
+        }
+    }
 }
 
 void showPackVect(vector<Pack> &v) {
