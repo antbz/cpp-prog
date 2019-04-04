@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <iterator>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -60,7 +61,7 @@ void showStrVect(const vector<string> &v, int spos = 0, long epos = -1, bool one
     if (epos == -1)
         epos = v.size();
     if (oneline) {
-        for (int i = spos; i < epos; i++) // TODO use size_t instead of int
+        for (int i = spos; i < epos; i++)
             if (i == epos - 1)
                 cout << v[i] << endl;
             else
@@ -170,6 +171,16 @@ void extractDate(Date &date, bool file = false) {
         date.valid = false;
         cinERR("Introduza uma data válida no formato DD/MM/YYYY");
     }
+}
+
+bool cmpDate(Date &date_1, Date &date_2) {
+    if (date_1.year < date_2.year)
+        return false;
+    else if (date_1.month < date_2.month)
+        return false;
+    else if (date_1.day < date_2.day)
+        return false;
+    return true;
 }
 
 // Address handling
@@ -311,7 +322,7 @@ void grabPacks(vector<int> &packs, bool edit = false) {
 
 // Agency file functions
 struct Agency {
-    string name, nif, url, clientsFileName, packsFileName; // TODO verify nif
+    string name, nif, url, clientsFileName, packsFileName;
     Address address;
 };
 
@@ -660,7 +671,7 @@ void writePacks(vector<Pack> &packs, string f_name) {
         } else
             packs_file << endl;
         packs_file << packs[i].startDate.full << endl;
-        packs_file << packs[i].endDate.full << endl;
+        packs_file << packs[i].endDate.year << '/' << packs[i].endDate.month << '/' << packs[i].endDate.day << endl;
         packs_file << packs[i].price << endl;
         packs_file << packs[i].totalSeats << endl;
         packs_file << packs[i].soldSeats;
@@ -691,10 +702,29 @@ void showPackVect(vector<Pack> &v) {
     }
 }
 
+vector<int> findPacks(vector<Pack> &packs, string dest = "") {
+    vector<int> result;
+     for (int i = 0; i < packs.size(); i++) {
+        if(find(packs.at(i).destinations.begin(), packs.at(i).destinations.end(), dest) != packs.at(i).destinations.end())
+            result.push_back(i);
+     }
+    return result;
+}
+
+vector<int> findPacks(vector<Pack> &packs, Date &date_1, Date &date_2) {
+    vector<int> result;
+    for (int i = 0; i < packs.size(); i++) {
+        if(cmpDate(packs[i].startDate, date_1) && cmpDate(date_2, packs[i].endDate))
+            result.push_back(i);
+    }
+    return result;
+}
+
 // Main menu functions
 void mainMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void clientsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
+void viewPacksMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void agencyMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 
 bool save = true;
@@ -710,7 +740,7 @@ void mainMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs
         switch (opt) {
             case 0:
                 cout << "Guardar alterações (S/n): ";
-                getline(cin, str); // TODO Implement saving to file
+                getline(cin, str);
                 if (str == "N" || str == "n") {
                     save = false;
                     cout << "Fechado sem guardar" << endl;
@@ -850,6 +880,54 @@ void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     packsMenuSelect(agency, clients, packs);
 }
 
+void viewPacksMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
+    string str;
+    int opt;
+    bool valid;
+
+    do {
+        getOption(opt);
+        valid = true;
+        switch (opt) {
+            case 0:
+                packsMenu(agency, clients, packs);
+                break;
+//            case 1:
+//                showPackVect(packs);
+//                cout << endl << "ENTER para voltar atrás";
+//                getline(cin, str);
+//                packsMenu(agency, clients, packs);
+//                break;
+//                // TODO See packs constrained
+//            case 3:
+//                addPack(packs);
+//                cout << endl << "ENTER para voltar atrás";
+//                getline(cin, str);
+//                packsMenu(agency, clients, packs);
+//                break;
+//
+            default:
+                valid = false;
+                cinERR("ERRO: Opção inválida, tente outra vez");
+                break;
+        }
+    } while (!valid);
+}
+
+void viewPacksMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
+    line(35);
+    cout << right << setfill(' ') << setw(22) << "VER PACKS" << endl;
+    line(35);
+    cout << setw(4) << left << '|' << "1. Todos" << endl;
+    cout << setw(4) << left << '|' << "2. Por destino" << endl;
+    cout << setw(4) << left << '|' << "3. Por data" << endl;
+    cout << setw(4) << left << '|' << "4. Por destino/data" << endl;
+    cout << endl << setw(4) << left << '|' << "0. Voltar atrás" << endl;
+    line(35);
+
+    viewPacksMenu(agency, clients, packs);
+}
+
 // Agency menu functions
 void agencyMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     string str;
@@ -906,17 +984,24 @@ int main() {
     openAgency(agency);
     readClients(clients, agency.clientsFileName);
     readPacks(packs, agency.packsFileName);
-
-    // Menu
-    cout << "* NiceHolidays GEST v1.0 BETA *" << endl;
-    mainMenu(agency, clients, packs);
-
-    // Testing area
-    if (agencyModify && save)
-        writeAgency(agency, "agency.txt");
-    if (clientsModify && save)
-        writeClients(clients, agency.clientsFileName);
-    if (packsModify && save)
-        writePacks(packs, agency.packsFileName);
+//
+//    // Menu
+//    cout << "* NiceHolidays GEST v1.0 BETA *" << endl;
+//    mainMenu(agency, clients, packs);
+//
+//    // Testing area
+//    if (agencyModify && save)
+//        writeAgency(agency, "agency.txt");
+//    if (clientsModify && save)
+//        writeClients(clients, agency.clientsFileName);
+//    if (packsModify && save)
+//        writePacks(packs, agency.packsFileName);
+    Date date1, date2;
+    date1.full = "01/03/2019";
+    date2.full = "31/08/2019";
+    extractDate(date1);
+    extractDate(date2);
+    vector<int> test = findPacks(packs, date1, date2);
+    showIntVect(test);
     return 0;
 }

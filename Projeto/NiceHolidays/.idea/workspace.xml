@@ -18,6 +18,7 @@
       <change beforePath="$PROJECT_DIR$/../../Ficha/3/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/3/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Ficha/3/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/3/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -47,38 +48,50 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="931">
-              <caret line="670" column="1" lean-forward="true" selection-start-line="670" selection-start-column="1" selection-end-line="670" selection-end-column="1" />
+            <state relative-caret-position="187">
+              <caret line="177" column="20" selection-start-line="177" selection-start-column="20" selection-end-line="177" selection-end-column="20" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#193#490#0" />
                 <element signature="e#492#914#0" />
-                <element signature="e#1440#2021#0" />
-                <element signature="e#2023#2549#0" />
-                <element signature="e#2551#2722#0" />
-                <element signature="e#2724#2887#0" />
-                <element signature="e#2889#3349#0" />
-                <element signature="e#3351#3547#0" />
-                <element signature="e#3566#3657#1" />
-                <element signature="e#3660#4875#0" />
-                <element signature="e#4897#5068#1" />
-                <element signature="e#5071#5775#0" />
-                <element signature="e#5777#6671#0" />
-                <element signature="e#6673#7491#0" />
-                <element signature="e#7493#8324#0" />
-                <element signature="e#14057#14600#0" />
-                <element signature="e#14625#14765#1" />
-                <element signature="e#16201#18560#0" />
-                <element signature="e#19094#19154#0" />
-                <element signature="e#17712#19086#0" />
-                <element signature="e#19445#20591#0" />
-                <element signature="e#20593#21222#0" />
-                <element signature="e#21224#22269#0" />
-                <element signature="e#22271#22862#0" />
-                <element signature="e#22864#23886#0" />
-                <element signature="e#23888#24468#0" />
-                <element signature="e#24470#25449#0" />
-                <element signature="e#25451#25899#0" />
+                <element signature="e#916#1487#0" />
+                <element signature="e#1489#2070#0" />
+                <element signature="e#2072#2598#0" />
+                <element signature="e#2600#2771#0" />
+                <element signature="e#2773#2936#0" />
+                <element signature="e#2938#3398#0" />
+                <element signature="e#3400#3596#0" />
+                <element signature="e#3615#3706#1" />
+                <element signature="e#5119#5823#0" />
+                <element signature="e#5825#6719#0" />
+                <element signature="e#6721#7539#0" />
+                <element signature="e#7541#8372#0" />
+                <element signature="e#8374#9129#0" />
+                <element signature="e#9156#9272#1" />
+                <element signature="e#9275#9678#0" />
+                <element signature="e#9708#10096#0" />
+                <element signature="e#10098#10662#0" />
+                <element signature="e#10664#11804#0" />
+                <element signature="e#11831#11925#1" />
+                <element signature="e#11928#12657#0" />
+                <element signature="e#12659#13330#0" />
+                <element signature="e#13361#14096#0" />
+                <element signature="e#14098#14935#0" />
+                <element signature="e#14960#15100#1" />
+                <element signature="e#15116#16535#0" />
+                <element signature="e#16564#19084#0" />
+                <element signature="e#19086#20116#0" />
+                <element signature="e#20118#21492#0" />
+                <element signature="e#21526#21863#0" />
+                <element signature="e#22999#23628#0" />
+                <element signature="e#23630#24675#0" />
+                <element signature="e#24677#25268#0" />
+                <element signature="e#25270#26292#0" />
+                <element signature="e#26294#26874#0" />
+                <element signature="e#26893#26988#0" />
+                <element signature="e#26893#26982#0" />
+                <element signature="e#26876#27855#0" />
+                <element signature="e#27857#28305#0" />
               </folding>
             </state>
           </provider>
@@ -88,7 +101,7 @@
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/packs.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -96,8 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="402">
+              <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -137,8 +150,8 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.cpp" />
         <option value="$PROJECT_DIR$/cmake-build-debug/clients.txt" />
         <option value="$PROJECT_DIR$/cmake-build-debug/agency.txt" />
-        <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/cmake-build-debug/packs.txt" />
+        <option value="$PROJECT_DIR$/main.cpp" />
       </list>
     </option>
   </component>
@@ -224,12 +237,13 @@
       <workItem from="1554164080132" duration="622000" />
       <workItem from="1554201627904" duration="3557000" />
       <workItem from="1554214940482" duration="12358000" />
-      <workItem from="1554365810624" duration="4524000" />
+      <workItem from="1554365810624" duration="4566000" />
+      <workItem from="1554372983421" duration="6251000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64149000" />
+    <option name="totallyTimeSpent" value="70442000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -242,20 +256,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13233724" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1339381" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.27321815" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27321815" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39848813" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32721382" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.4994664" weight="0.32829374" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.4994664" visible="true" weight="0.31101513" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4994664" weight="0.3488121" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053364" side_tool="true" weight="0.31101513" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32900432" />
       <window_info anchor="bottom" id="CMake" order="12" />
@@ -267,6 +282,72 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>714</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>715</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>716</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>717</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>719</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>176</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>177</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>178</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>180</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>179</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>181</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>182</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
@@ -294,52 +375,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="402">
+          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/packs.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="670" column="1" lean-forward="true" selection-start-line="670" selection-start-column="1" selection-end-line="670" selection-end-column="1" />
+        <state relative-caret-position="187">
+          <caret line="177" column="20" selection-start-line="177" selection-start-column="20" selection-end-line="177" selection-end-column="20" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#193#490#0" />
             <element signature="e#492#914#0" />
-            <element signature="e#1440#2021#0" />
-            <element signature="e#2023#2549#0" />
-            <element signature="e#2551#2722#0" />
-            <element signature="e#2724#2887#0" />
-            <element signature="e#2889#3349#0" />
-            <element signature="e#3351#3547#0" />
-            <element signature="e#3566#3657#1" />
-            <element signature="e#3660#4875#0" />
-            <element signature="e#4897#5068#1" />
-            <element signature="e#5071#5775#0" />
-            <element signature="e#5777#6671#0" />
-            <element signature="e#6673#7491#0" />
-            <element signature="e#7493#8324#0" />
-            <element signature="e#14057#14600#0" />
-            <element signature="e#14625#14765#1" />
-            <element signature="e#16201#18560#0" />
-            <element signature="e#19094#19154#0" />
-            <element signature="e#17712#19086#0" />
-            <element signature="e#19445#20591#0" />
-            <element signature="e#20593#21222#0" />
-            <element signature="e#21224#22269#0" />
-            <element signature="e#22271#22862#0" />
-            <element signature="e#22864#23886#0" />
-            <element signature="e#23888#24468#0" />
-            <element signature="e#24470#25449#0" />
-            <element signature="e#25451#25899#0" />
+            <element signature="e#916#1487#0" />
+            <element signature="e#1489#2070#0" />
+            <element signature="e#2072#2598#0" />
+            <element signature="e#2600#2771#0" />
+            <element signature="e#2773#2936#0" />
+            <element signature="e#2938#3398#0" />
+            <element signature="e#3400#3596#0" />
+            <element signature="e#3615#3706#1" />
+            <element signature="e#5119#5823#0" />
+            <element signature="e#5825#6719#0" />
+            <element signature="e#6721#7539#0" />
+            <element signature="e#7541#8372#0" />
+            <element signature="e#8374#9129#0" />
+            <element signature="e#9156#9272#1" />
+            <element signature="e#9275#9678#0" />
+            <element signature="e#9708#10096#0" />
+            <element signature="e#10098#10662#0" />
+            <element signature="e#10664#11804#0" />
+            <element signature="e#11831#11925#1" />
+            <element signature="e#11928#12657#0" />
+            <element signature="e#12659#13330#0" />
+            <element signature="e#13361#14096#0" />
+            <element signature="e#14098#14935#0" />
+            <element signature="e#14960#15100#1" />
+            <element signature="e#15116#16535#0" />
+            <element signature="e#16564#19084#0" />
+            <element signature="e#19086#20116#0" />
+            <element signature="e#20118#21492#0" />
+            <element signature="e#21526#21863#0" />
+            <element signature="e#22999#23628#0" />
+            <element signature="e#23630#24675#0" />
+            <element signature="e#24677#25268#0" />
+            <element signature="e#25270#26292#0" />
+            <element signature="e#26294#26874#0" />
+            <element signature="e#26893#26988#0" />
+            <element signature="e#26893#26982#0" />
+            <element signature="e#26876#27855#0" />
+            <element signature="e#27857#28305#0" />
           </folding>
         </state>
       </provider>

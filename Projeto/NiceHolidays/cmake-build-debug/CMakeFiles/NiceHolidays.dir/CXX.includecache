@@ -13,6 +13,8 @@ iomanip
 -
 iterator
 -
+algorithm
+-
 string
 -
 vector
