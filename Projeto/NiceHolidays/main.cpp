@@ -42,6 +42,7 @@ vector<int> strToIntVect(const string &str, char delim = ' ') {
     // Create stream from string
     istringstream ss(str);
     // Grab the elements from the stream, separated by delim
+    // If string is empty return an empty vector
     while (getline(ss, tmp, delim)) {
         tmp = trim(tmp);
         if (isNumeric(tmp))
@@ -301,7 +302,7 @@ void grabPacks(vector<int> &packs, bool edit = false) {
                 packs = strToIntVect(str, ',');
                 break;
             }
-        } catch (int e) {
+        } catch (int &e) {
             cinERR("ERRO: Introduza pacotes separados por ,");
             cout << endl;
         }
@@ -335,7 +336,7 @@ void writeAgency(Agency &agency, string agency_f_name) {
     agency_file << agency.url << endl;
     agency_file << agency.address.file_format << endl;
     agency_file << agency.clientsFileName << endl;
-    agency_file << agency.packsFileName << endl;
+    agency_file << agency.packsFileName;
     agency_file.close();
 }
 
@@ -452,12 +453,12 @@ void writeClients(vector<Client> &clients, string f_name) {
         clients_file << clients[i].address.file_format << endl;
         for (int j = 0; j < clients[i].packs.size(); j++){
             if (j == clients[i].packs.size() - 1)
-                clients_file << clients[i].packs[j] << endl;
+                clients_file << clients[i].packs[j];
             else
                 clients_file << clients[i].packs[j] << "; ";
         }
         if (i != clients.size() - 1)
-            clients_file << "::::::::::" << endl;
+            clients_file << endl << "::::::::::" << endl;
     }
     clients_file.close();
 }
@@ -470,14 +471,24 @@ void addClient(vector<Client> &clients) {
     clients.push_back(Client());
 
     // Grabs the client info from cin
-    cout << "Nome do cliente: ";
-    getline(cin, clients.back().name);
+    while (true) {
+        try {
+            cout << "Nome do cliente: ";
+            getline(cin, str);
+            if (str.empty()) throw 100;
+            clients.back().name = str;
+            break;
+        } catch (int &e){
+            cinERR("ERRO: Entrada inválida");
+        }
+    }
     // Grabs NIF from cin, checking errors;
     grabNIF(clients.back().nif);
     // Grabs household size from cin, checking errors
     grabHousehold(clients.back().household);
     // Address extraction
     grabAddress(clients.back().address);
+    // Pack extraction (can be empty if client hasn't bought any packs yet
     grabPacks(clients.back().packs);
 }
 
@@ -543,7 +554,11 @@ void readPacks(vector<Pack> &p, string f_name) {
     p_file.close();
 }
 
+bool packsModify = false;
+
 void addPack(vector<Pack> &packs) {
+    packsModify = true;
+
     string str;
     vector<string> vect;
 
@@ -627,6 +642,32 @@ void addPack(vector<Pack> &packs) {
             cinERR("ERRO: Entrada inválida");
         }
     }
+}
+
+void writePacks(vector<Pack> &packs, string f_name) {
+    ofstream packs_file(f_name);
+    packs_file << lastID << endl;
+    for (int i = 0; i < packs.size(); i++) {
+        packs_file << packs[i].id << endl;
+        packs_file << packs[i].mainDest;
+        if (packs[i].destinations.size() > 1) {
+            packs_file << " - ";
+            for (int j = 1; j < packs[i].destinations.size(); j++)
+                if (j == packs[i].destinations.size() - 1)
+                    packs_file << packs[i].destinations[j] << endl;
+                else
+                    packs_file << packs[i].destinations[j] << ", ";
+        } else
+            packs_file << endl;
+        packs_file << packs[i].startDate.full << endl;
+        packs_file << packs[i].endDate.full << endl;
+        packs_file << packs[i].price << endl;
+        packs_file << packs[i].totalSeats << endl;
+        packs_file << packs[i].soldSeats;
+        if (i != packs.size() - 1)
+            packs_file << endl << "::::::::::" << endl;
+    }
+    packs_file.close();
 }
 
 void showPackVect(vector<Pack> &v) {
@@ -875,5 +916,7 @@ int main() {
         writeAgency(agency, "agency.txt");
     if (clientsModify && save)
         writeClients(clients, agency.clientsFileName);
+    if (packsModify && save)
+        writePacks(packs, agency.packsFileName);
     return 0;
 }
