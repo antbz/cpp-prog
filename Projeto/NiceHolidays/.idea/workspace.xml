@@ -18,9 +18,7 @@
       <change beforePath="$PROJECT_DIR$/../../Ficha/3/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/3/cmake-build-debug/CMakeFiles/3.dir/main.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Ficha/3/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/3/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Ficha/4/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/NiceHolidays.dir/main.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/NiceHolidays" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/NiceHolidays" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -50,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="1436" column="11" lean-forward="true" selection-start-line="1436" selection-start-column="11" selection-end-line="1441" selection-end-column="48" />
+            <state relative-caret-position="308">
+              <caret line="1029" column="34" selection-start-line="1029" selection-start-column="34" selection-end-line="1029" selection-end-column="34" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#214#511#0" />
@@ -85,7 +83,6 @@
                 <element signature="e#15355#15547#0" />
                 <element signature="e#15539#17935#0" />
                 <element signature="e#15355#15603#0" />
-                <element signature="e#15324#15464#1" />
                 <element signature="e#15480#16899#0" />
                 <element signature="e#16928#19448#0" />
                 <element signature="e#19450#20612#0" />
@@ -98,9 +95,6 @@
                 <element signature="e#24262#24313#0" />
                 <element signature="e#24473#26759#0" />
                 <element signature="e#28778#28830#0" />
-                <element signature="e#24562#25675#0" />
-                <element signature="e#25677#26306#0" />
-                <element signature="e#33485#35664#0" />
                 <element signature="e#27355#27946#0" />
                 <element signature="e#32954#34825#1" />
                 <element signature="e#28844#29424#0" />
@@ -125,8 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="931">
-              <caret line="49" column="9" selection-start-line="49" selection-end-line="49" selection-end-column="9" />
+            <state relative-caret-position="247">
+              <caret line="43" column="9" selection-start-line="43" selection-end-line="43" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -258,12 +252,12 @@
       <workItem from="1554214940482" duration="12358000" />
       <workItem from="1554365810624" duration="4566000" />
       <workItem from="1554372983421" duration="10022000" />
-      <workItem from="1554968944405" duration="10919000" />
+      <workItem from="1554968944405" duration="12217000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85132000" />
+    <option name="totallyTimeSpent" value="86430000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -276,21 +270,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13553895" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.27321815" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27321815" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39848813" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="TODO" order="6" sideWeight="0.4994664" visible="true" weight="0.32721382" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4994664" weight="0.32721382" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Messages" order="8" sideWeight="0.49893278" weight="0.32829374" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4994664" weight="0.36069113" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4994664" weight="0.26565874" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010672" side_tool="true" weight="0.32829374" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32900432" />
       <window_info anchor="bottom" id="CMake" order="12" />
@@ -327,13 +320,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
-          <caret line="49" column="9" selection-start-line="49" selection-end-line="49" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/packs.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -341,10 +327,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmake-build-debug/clients.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="43" column="9" selection-start-line="43" selection-end-line="43" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="1436" column="11" lean-forward="true" selection-start-line="1436" selection-start-column="11" selection-end-line="1441" selection-end-column="48" />
+        <state relative-caret-position="308">
+          <caret line="1029" column="34" selection-start-line="1029" selection-start-column="34" selection-end-line="1029" selection-end-column="34" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#214#511#0" />
@@ -378,7 +371,6 @@
             <element signature="e#15355#15547#0" />
             <element signature="e#15539#17935#0" />
             <element signature="e#15355#15603#0" />
-            <element signature="e#15324#15464#1" />
             <element signature="e#15480#16899#0" />
             <element signature="e#16928#19448#0" />
             <element signature="e#19450#20612#0" />
@@ -391,9 +383,6 @@
             <element signature="e#24262#24313#0" />
             <element signature="e#24473#26759#0" />
             <element signature="e#28778#28830#0" />
-            <element signature="e#24562#25675#0" />
-            <element signature="e#25677#26306#0" />
-            <element signature="e#33485#35664#0" />
             <element signature="e#27355#27946#0" />
             <element signature="e#32954#34825#1" />
             <element signature="e#28844#29424#0" />

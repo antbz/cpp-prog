@@ -616,7 +616,8 @@ int deleteClient(vector<Client> &clients, string nif) {
 // Pack file functions
 //
 struct Pack {
-    int id, totalSeats, soldSeats, price;
+    int id, totalSeats, soldSeats;
+    double price;
     string mainDest;
     vector<string> destinations;
     Date startDate, endDate;
@@ -1017,6 +1018,34 @@ int deletePack(vector<Pack> &packs, int id) {
 
 
 //
+// Sales report functions
+//
+void salesReport(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
+    line(35);
+    cout << right << "Relatório " << agency.name << endl;
+    line(35);
+    cout << setw(4) << left << '-' << "Número de clientes: " << clients.size() << endl;
+    cout << setw(4) << left << '-' << "Número de pacotes: " << packs.size() << endl;
+
+    long n_sales = 0, np_sales = 0;
+    double v_sales = 0, vp_sales = 0;
+    for (int i = 0; i < packs.size(); i++) {
+        n_sales += packs.at(i).soldSeats;
+        v_sales += packs.at(i).soldSeats * packs.at(i).price;
+        np_sales += packs.at(i).totalSeats - packs.at(i).soldSeats;
+        vp_sales += (packs.at(i).totalSeats - packs.at(i).soldSeats) * packs.at(i).price;
+    }
+
+    cout << setw(4) << left << '-' << "Número de pacotes vendidos: " << n_sales << endl;
+    cout << setw(4) << left << '-' << "Valor de pacotes vendidos: " << v_sales << endl;
+    cout << setw(4) << left << '-' << "Número de pacotes por vender: " << np_sales << endl;
+    cout << setw(4) << left << '-' << "Valor de pacotes por vender: " << vp_sales << endl;
+
+
+}
+
+
+//
 // Main menu functions
 //
 void mainMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
@@ -1046,7 +1075,12 @@ void mainMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs
                     cout << "Alterações guardadas" << endl;
                 break;
             // TODO implement purchasing
-            // TODO implement sales report
+            case 2:
+                salesReport(agency,clients,packs);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                mainMenu(agency, clients, packs);
+                break;
             case 3:
                 clientsMenu(agency, clients, packs);
                 break;
