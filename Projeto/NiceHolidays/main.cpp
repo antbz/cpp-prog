@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 //
 // Diplay functions
 //
@@ -151,14 +152,10 @@ void extractDate(Date &date, bool file = false) {
         vector<string> temp;
         temp = strToVect(date.full, '/');
         if (file) {
-            if (temp[0].length() != 4 || temp[1].length() != 2 || temp[2].length() != 2)
-                throw 2;
             date.day = stoi(temp[2]);
             date.month = stoi(temp[1]);
             date.year = stoi(temp[0]);
         } else {
-            if (temp[0].length() != 2 || temp[1].length() != 2 || temp[2].length() != 4)
-                throw 2;
             date.day = stoi(temp[0]);
             date.month = stoi(temp[1]);
             date.year = stoi(temp[2]);
@@ -609,6 +606,7 @@ int deleteClient(vector<Client> &clients, string nif) {
 
     clients.erase(clients.begin()+pos);
     cout << "Cliente com NIF " << nif << " apagado";
+    return 0;
 }
 
 
@@ -769,7 +767,10 @@ void addPack(vector<Pack> &packs) {
 void writePacks(vector<Pack> &packs, string f_name) {
     ofstream packs_file(f_name);
     packs_file << lastID << endl;
+
     for (int i = 0; i < packs.size(); i++) {
+        if (packs[i].soldSeats == packs[i].totalSeats && packs[i].id > 0)
+            packs[i].id = -packs[i].id;
         packs_file << packs[i].id << endl;
         packs_file << packs[i].mainDest;
         if (packs[i].destinations.size() > 1) {
@@ -781,8 +782,8 @@ void writePacks(vector<Pack> &packs, string f_name) {
                     packs_file << packs[i].destinations[j] << ", ";
         } else
             packs_file << endl;
-        packs_file << packs[i].startDate.year << '/' << packs[i].startDate.month << '/' << packs[i].startDate.day << endl;
-        packs_file << packs[i].endDate.year << '/' << packs[i].endDate.month << '/' << packs[i].endDate.day << endl;
+        packs_file << setfill('0') << setw(4) << packs[i].startDate.year << '/' << setw(2) << packs[i].startDate.month << '/' << setw(2) << packs[i].startDate.day << endl;
+        packs_file << setfill('0') << setw(4) << packs[i].endDate.year << '/' << setw(2) << packs[i].endDate.month << '/' << setw(2) << packs[i].endDate.day << endl << setfill(' ');
         packs_file << packs[i].price << endl;
         packs_file << packs[i].totalSeats << endl;
         packs_file << packs[i].soldSeats;
@@ -1018,6 +1019,22 @@ int deletePack(vector<Pack> &packs, int id) {
 
 
 //
+// Pack purchase functions
+//
+bool buyPack(Client &client, Pack &pack) {
+    clientsModify = true;
+    packsModify = true;
+    if (pack.totalSeats - pack.soldSeats <= 0) {
+        cout << "Pacote esgotado!";
+        return false;
+    }
+    client.packs.push_back(pack.id);
+    pack.soldSeats++;
+    return true;
+}
+
+
+//
 // Sales report functions
 //
 void salesReport(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
@@ -1074,7 +1091,56 @@ void mainMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs
                 } else
                     cout << "Alterações guardadas" << endl;
                 break;
-            // TODO implement purchasing
+            case 1: {
+                int client_pos, pack_pos;
+                while (true) {
+                    cout << "NIF do cliente (0 - cancelar): ";
+                    getline(cin, str);
+                    if (str == "0") {
+                        break;
+                    } else if (isNumeric(str) && str.length() == 9) {
+                        client_pos = findClient(clients, str);
+                        if (client_pos == -1) {
+                            str = "0";
+                            cinERR("Cliente não existe!");
+                        }
+                        break;
+                    }
+                    cinERR("ERRO: Introduza um NIF válido");
+                }
+                if (str == "0") {
+                    cout << endl << "ENTER para voltar atrás";
+                    getline(cin, str);
+                    mainMenu(agency, clients, packs);
+                    break;
+                }
+                while (true) {
+                    cout << "ID do pacote (0 - cancelar): ";
+                    getline(cin, str);
+                    if (str == "0") {
+                        break;
+                    } else if (isNumeric(str)) {
+                        pack_pos = findPacks(packs, stoi(str));
+                        if (pack_pos == -1) {
+                            str = "0";
+                            cinERR("Pacote não existe!");
+                        }
+                        break;
+                    }
+                }
+                if (str == "0") {
+                    cout << endl << "ENTER para voltar atrás";
+                    getline(cin, str);
+                    mainMenu(agency, clients, packs);
+                    break;
+                }
+                if (buyPack(clients.at(client_pos), packs.at(pack_pos)))
+                    cout << "Compra efetuada com sucesso!";
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                mainMenu(agency, clients, packs);
+                break;
+            }
             case 2:
                 salesReport(agency,clients,packs);
                 cout << endl << "ENTER para voltar atrás";
@@ -1139,9 +1205,11 @@ void clientsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &pa
             }
             case 2: {
                 while (true) {
-                    cout << "NIF do cliente a editar: ";
+                    cout << "NIF do cliente a editar (0 - cancelar): ";
                     getline(cin, str);
-                    if (isNumeric(str) && str.length() == 9) {
+                    if (str == "0") {
+                        break;
+                    } else if (isNumeric(str) && str.length() == 9) {
                         editClient(clients, str);
                         break;
                     }
@@ -1161,9 +1229,11 @@ void clientsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &pa
             }
             case 4: {
                 while (true) {
-                    cout << "NIF do cliente a apagar: ";
+                    cout << "NIF do cliente a apagar (0 - cancelar): ";
                     getline(cin, str);
-                    if (isNumeric(str) && str.length() == 9) {
+                    if (str == "0") {
+                        break;
+                    } else if (isNumeric(str) && str.length() == 9) {
                         deleteClient(clients, str);
                         break;
                     }
@@ -1217,9 +1287,11 @@ void packsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &pack
                 break;
             case 2:
                 while (true) {
-                    cout << "ID de pacote a editar: ";
+                    cout << "ID de pacote a editar (0 - cancelar): ";
                     getline(cin, str);
-                    if (isNumeric(str)) {
+                    if (str == "0") {
+                        break;
+                    } else if (isNumeric(str)) {
                         editPack(packs, stoi(str));
                         break;
                     }
@@ -1237,9 +1309,11 @@ void packsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &pack
                 break;
             case 4:
                 while (true) {
-                    cout << "ID de pacote a apagar: ";
+                    cout << "ID de pacote a apagar (0 - cancelar): ";
                     getline(cin, str);
-                    if (isNumeric(str)) {
+                    if (str == "0") {
+                        break;
+                    } else if (isNumeric(str)) {
                         deletePack(packs, stoi(str));
                         break;
                     }

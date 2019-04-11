@@ -2,7 +2,7 @@ Rui Manuel
 234987156
 4
 Rua Sem Fim / 200 / 5Esq /1200-001 / Lisboa
-10; 36; 2
+10; 36; 2; 3
 ::::::::::
 Belmiro Miguel
 111987666
@@ -44,3 +44,4 @@ Rua de Cima / 10 / - / 5780-998 / Lugar de Baixo
 333222111
 2
 2 / 3 / 5 / 6 / 7
+3
