@@ -8,7 +8,9 @@
 
 using namespace std;
 
+//
 // Diplay functions
+//
 bool isNumeric(const string &str);
 
 string trim(string &str) {
@@ -63,7 +65,7 @@ void showStrVect(const vector<string> &v, int spos = 0, long epos = -1, bool one
     if (oneline) {
         for (int i = spos; i < epos; i++)
             if (i == epos - 1)
-                cout << v[i] << endl;
+                cout << v[i];
             else
                 cout << v[i] << sep;
     }
@@ -95,7 +97,10 @@ void line(int size, char ch = '-') {
     cout << setfill(ch) << setw(size) << "" << endl << setfill(' ');
 }
 
+
+//
 // Input functions
+//
 void cinERR(string message) {
     // Outputs an error message and clears cin and flags
     cerr << message;
@@ -130,7 +135,10 @@ bool isNumeric(const string &str) {
     return true;
 }
 
+
+//
 // Date handling
+//
 struct Date {
     unsigned int day, month, year;
     string full;
@@ -174,16 +182,20 @@ void extractDate(Date &date, bool file = false) {
 }
 
 bool cmpDate(Date &date_1, Date &date_2) {
+    // Checks if date_1 is later than or the same as date_2
     if (date_1.year < date_2.year)
         return false;
-    else if (date_1.month < date_2.month)
+    else if (date_1.month < date_2.month && date_1.year == date_2.year)
         return false;
-    else if (date_1.day < date_2.day)
+    else if (date_1.day < date_2.day && date_1.month == date_2.month && date_1.year == date_2.year)
         return false;
     return true;
 }
 
+
+//
 // Address handling
+//
 struct Address {
     // rua / número da porta / número do andar / código postal / localidade
     string street, door, level, postcode, town, file_format, display_format;
@@ -218,8 +230,10 @@ void grabAddress(Address &address, bool edit = false) {
                 cout << setw(4) << left << '|' << "Morada (" << address.display_format << "): ";
                 getline(cin, str);
                 if (str != "") {
-                    address.display_format = str;
-                    extractAddress(address, false);
+                    Address tempAddress;
+                    tempAddress.display_format = str;
+                    extractAddress(tempAddress, false); // Throws exception if address in invalid
+                    address = tempAddress;
                     str = "";
                 }
                 break;
@@ -237,7 +251,10 @@ void grabAddress(Address &address, bool edit = false) {
     }
 }
 
+
+//
 // NIF handling
+//
 void grabNIF(string &nif, bool edit = false) {
     string str;
     while (true) {
@@ -266,7 +283,10 @@ void grabNIF(string &nif, bool edit = false) {
     }
 }
 
+
+//
 // Housekeeping
+//
 void grabHousehold(string &hhold, bool edit = false) {
     string str;
     while (true) {
@@ -295,14 +315,17 @@ void grabHousehold(string &hhold, bool edit = false) {
     }
 }
 
+
+//
 // Pack handling
+//
 void grabPacks(vector<int> &packs, bool edit = false) {
     string str; // TODO Verify if pack is in packs file
     while (true) {
         try {
             if (edit) {
                 cout << setw(4) << left << '|' << "Pacotes adquiridos (";
-                showIntVect(packs);
+                showIntVect(packs, 0, -1, true);
                 cout << "): ";
                 getline(cin, str);
                 packs = strToIntVect(str, ',');
@@ -320,7 +343,10 @@ void grabPacks(vector<int> &packs, bool edit = false) {
     }
 }
 
+
+//
 // Agency file functions
+//
 struct Agency {
     string name, nif, url, clientsFileName, packsFileName;
     Address address;
@@ -407,7 +433,10 @@ void editAgency(Agency &agency) {
     cout << "\\_" << endl;
 }
 
+
+//
 // Client file functions
+//
 struct Client {
     string name, nif, household;
     Address address;
@@ -503,8 +532,89 @@ void addClient(vector<Client> &clients) {
     grabPacks(clients.back().packs);
 }
 
+int findClient(vector<Client> &clients, string nif) {
+    for (int i = 0; i < clients.size(); i++) {
+        if(clients.at(i).nif == nif)
+            return i;
+    }
+    return -1;
+}
 
-// Pack file function
+int editClient(vector<Client> &clients, string nif) {
+    int pos = findClient(clients, nif);
+    if (pos == -1) {
+        cerr << "Cliente não encontrado!";
+        return -1;
+    }
+
+    clientsModify = true;
+
+    string str = "";
+    vector<string> vect;
+    cout << setw(2) << ' ' << "A EDITAR CLIENTE (NIF:  " << nif << ")" << endl;
+    cout << "/" << endl;
+
+    cout << setw(4) << left << '|' << "Nome (" << clients.at(pos).name << "): ";
+    getline(cin, str);
+    if (!str.empty()) {
+        clients.at(pos).name = str;
+        str.clear();
+    }
+
+    while(true) {
+        cout << setw(4) << left << '|' << "NIF (" << clients.at(pos).nif << "): ";
+        getline(cin, str);
+        if (str.empty()) {
+            break;
+        } else {
+            if (isNumeric(str) && str.length() == 9) {
+                clients.at(pos).nif = str;
+                break;
+            } else {
+                cinERR("ERRO: Introduza um NIF válido");
+            }
+        }
+    }
+
+    while(true) {
+        cout << setw(4) << left << '|' << "Nº de pessoas no agregado (" << clients.at(pos).household << "): ";
+        getline(cin, str);
+        if (str.empty()) {
+            break;
+        } else {
+            if (isNumeric(str)) {
+                clients.at(pos).household = str;
+                break;
+            } else {
+                cinERR("ERRO: Introduza um número positivo válido");
+            }
+        }
+    }
+
+    grabAddress(clients.at(pos).address, true);
+
+    grabPacks(clients.at(pos).packs, true);
+
+    cout << "\\_" << endl;
+}
+
+int deleteClient(vector<Client> &clients, string nif) {
+    int pos = findClient(clients, nif);
+    if (pos == -1) {
+        cerr << "Cliente não encontrado!";
+        return -1;
+    }
+
+    clientsModify = true;
+
+    clients.erase(clients.begin()+pos);
+    cout << "Cliente com NIF " << nif << " apagado";
+}
+
+
+//
+// Pack file functions
+//
 struct Pack {
     int id, totalSeats, soldSeats, price;
     string mainDest;
@@ -576,7 +686,7 @@ void addPack(vector<Pack> &packs) {
     // Adds new pack to vector
     packs.push_back(Pack());
 
-    // Sets pack id
+    // Sets pack idpacks.at(pos).destinations
     lastID++;
     packs.back().id = lastID;
     cout << "Pack ID: " << lastID << endl;
@@ -670,7 +780,7 @@ void writePacks(vector<Pack> &packs, string f_name) {
                     packs_file << packs[i].destinations[j] << ", ";
         } else
             packs_file << endl;
-        packs_file << packs[i].startDate.full << endl;
+        packs_file << packs[i].startDate.year << '/' << packs[i].startDate.month << '/' << packs[i].startDate.day << endl;
         packs_file << packs[i].endDate.year << '/' << packs[i].endDate.month << '/' << packs[i].endDate.day << endl;
         packs_file << packs[i].price << endl;
         packs_file << packs[i].totalSeats << endl;
@@ -681,6 +791,7 @@ void writePacks(vector<Pack> &packs, string f_name) {
     packs_file.close();
 }
 
+// Shows all packs
 void showPackVect(vector<Pack> &v) {
     cout << setw(2) << ' ' << "Pacotes de viagem disponíveis:" << endl;
     // [DEBUG] cout << "> Last ID: " << lastID << endl;
@@ -688,9 +799,11 @@ void showPackVect(vector<Pack> &v) {
         cout << "/" << endl;
         cout << setw(4) << left << '|' << "Pack ID: " << v[i].id << endl;
         cout << setw(4) << left << '|' << "Destino principal: " << v[i].mainDest << endl;
-        if (v[i].destinations.size() > 1)
+        if (v[i].destinations.size() > 1) {
             cout << setw(4) << left << '|' << "Destinos adicionais: ";
-        showStrVect(v[i].destinations, 1, -1, true); // Not printed if only one main destination
+            showStrVect(v[i].destinations, 1, -1, true);
+            cout << endl; // Not printed if only one main destination
+        }
         cout << setw(4) << left << '|' << "Data de início: " << v[i].startDate.full << endl;
         // [DEBUG] cout << setw(4) << left << '|' << "" << v[i].startDate.day << '-' << v[i].startDate.month << '-' << v[i].startDate.year << endl;
         cout << setw(4) << left << '|' << "Data de fim: " << v[i].endDate.full << endl;
@@ -702,7 +815,49 @@ void showPackVect(vector<Pack> &v) {
     }
 }
 
-vector<int> findPacks(vector<Pack> &packs, string dest = "") {
+// Shows packs selected by range vector, displaying a message before
+void showPackVect(vector<Pack> &v, vector<int> range, string message) {
+    cout << setw(2) << ' ' << message << endl;
+
+    for (int i = 0; i < range.size(); i++) {
+        cout << "/" << endl;
+        cout << setw(4) << left << '|' << "Pack ID: " << v[range[i]].id << endl;
+        cout << setw(4) << left << '|' << "Destino principal: " << v[range[i]].mainDest << endl;
+        if (v[range[i]].destinations.size() > 1) {
+            cout << setw(4) << left << '|' << "Destinos adicionais: ";
+            showStrVect(v[range[i]].destinations, 1, -1, true);
+            cout << endl; // Not printed if only one main destination
+        }
+        cout << setw(4) << left << '|' << "Data de início: " << v[range[i]].startDate.full << endl;
+        cout << setw(4) << left << '|' << "Data de fim: " << v[range[i]].endDate.full << endl;
+        cout << setw(4) << left << '|' << "Preço pacote: " << v[range[i]].price << endl;
+        cout << setw(4) << left << '|' << "Nº de vagas: " << v[range[i]].totalSeats << endl;
+        cout << setw(4) << left << '|' << "Vagas vendidas: " << v[range[i]].soldSeats << endl;
+        cout << "\\_" << endl;
+    }
+}
+
+void showPack(vector<Pack> &packs, int i) {
+    cout << setw(2) << ' ' << "Pacote " << packs.at(i).id << endl;
+
+    cout << "/" << endl;
+    cout << setw(4) << left << '|' << "Pack ID: " << packs.at(i).id << endl;
+    cout << setw(4) << left << '|' << "Destino principal: " << packs.at(i).mainDest << endl;
+    if (packs.at(i).destinations.size() > 1) {
+        cout << setw(4) << left << '|' << "Destinos adicionais: ";
+        showStrVect(packs.at(i).destinations, 1, -1, true);
+        cout << endl; // Not printed if only one main destination
+    }
+    cout << setw(4) << left << '|' << "Data de início: " << packs.at(i).startDate.full << endl;
+    cout << setw(4) << left << '|' << "Data de fim: " << packs.at(i).endDate.full << endl;
+    cout << setw(4) << left << '|' << "Preço pacote: " << packs.at(i).price << endl;
+    cout << setw(4) << left << '|' << "Nº de vagas: " << packs.at(i).totalSeats << endl;
+    cout << setw(4) << left << '|' << "Vagas vendidas: " << packs.at(i).soldSeats << endl;
+    cout << "\\_" << endl;
+
+}
+
+vector<int> findPacks(vector<Pack> &packs, string &dest) {
     vector<int> result;
      for (int i = 0; i < packs.size(); i++) {
         if(find(packs.at(i).destinations.begin(), packs.at(i).destinations.end(), dest) != packs.at(i).destinations.end())
@@ -720,7 +875,150 @@ vector<int> findPacks(vector<Pack> &packs, Date &date_1, Date &date_2) {
     return result;
 }
 
+vector<int> findPacks(vector<Pack> &packs, string dest, Date &date_1, Date &date_2) {
+    vector<int> result;
+    for (int i = 0; i < packs.size(); i++) {
+        if(find(packs.at(i).destinations.begin(), packs.at(i).destinations.end(), dest) != packs.at(i).destinations.end()
+        && cmpDate(packs[i].startDate, date_1) && cmpDate(date_2, packs[i].endDate))
+            result.push_back(i);
+    }
+    return result;
+}
+
+int findPacks(vector<Pack> &packs, int id) {
+    for (int i = 0; i < packs.size(); i++) {
+        if(packs.at(i).id == id || packs.at(i).id == -id)
+            return i;
+    }
+    return -1;
+}
+
+int editPack(vector<Pack> &packs, int id) {
+    int pos = findPacks(packs, id);
+    if (pos == -1) {
+        cerr << "Pacote não encontrado!";
+        return -1;
+    }
+
+    packsModify = true;
+
+    string str = "";
+    vector<string> vect;
+    cout << setw(2) << ' ' << "A EDITAR PACOTE " << id << endl;
+    cout << "/" << endl;
+
+    cout << setw(4) << left << '|' << "Destinos (" << packs.at(pos).mainDest;
+    if (packs.at(pos).destinations.size() > 1) {
+        cout << " - ";
+        showStrVect(packs.at(pos).destinations, 1, -1, true);
+    }
+    cout << "): ";
+    getline(cin, str);
+    if (!str.empty()) {
+        // Start parsing the input
+        packs.at(pos).destinations = strToVect(str, '-');
+        packs.at(pos).mainDest = packs.at(pos).destinations[0];
+        // Split the other destinations, if they exist
+        if (packs.at(pos).destinations.size() > 1) {
+            vect = strToVect(packs.at(pos).destinations[1], ',');
+            packs.at(pos).destinations.insert(packs.at(pos).destinations.end() - 1, vect.begin(), vect.end());
+            packs.at(pos).destinations.pop_back();
+        }
+        str.clear();
+    }
+
+
+    while(true) {
+        cout << setw(4) << left << '|' << "Data de início (" << packs.at(pos).startDate.day << "/" << packs.at(pos).startDate.month << "/" << packs.at(pos).startDate.year  << "): ";
+        getline(cin, str);
+        Date tempDate;
+        tempDate.full = str;
+        if (str.empty()) {
+            break;
+        } else {
+            extractDate(tempDate);
+            if (tempDate.valid) {
+                packs.at(pos).startDate = tempDate;
+                break;
+            }
+        }
+    }
+
+    while(true) {
+        cout << setw(4) << left << '|' << "Data de fim (" << packs.at(pos).endDate.day << "/" << packs.at(pos).endDate.month << "/" << packs.at(pos).endDate.year  << "): ";
+        getline(cin, str);
+        Date tempDate;
+        tempDate.full = str;
+        if (str.empty()) {
+            break;
+        } else {
+            extractDate(tempDate);
+            if (tempDate.valid) {
+                packs.at(pos).endDate = tempDate;
+                break;
+            }
+        }
+    }
+
+    while(true) {
+        cout << setw(4) << left << '|' << "Preço pacote (" << packs.at(pos).price << "): ";
+        getline(cin, str);
+        if (str.empty()) {
+            break;
+        } else {
+            if (isNumeric(str)) {
+                packs.at(pos).price = stoi(str);
+                break;
+            }
+        }
+    }
+
+    while(true) {
+        cout << setw(4) << left << '|' << "Nº de vagas (" << packs.at(pos).totalSeats << "): ";
+        getline(cin, str);
+        if (str.empty()) {
+            break;
+        } else {
+            if (isNumeric(str)) {
+                packs.at(pos).totalSeats = stoi(str);
+                break;
+            }
+        }
+    }
+
+    while(true) {
+        cout << setw(4) << left << '|' << "Vagas vendidas (" << packs.at(pos).soldSeats << "): ";
+        getline(cin, str);
+        if (str.empty()) {
+            break;
+        } else {
+            if (isNumeric(str)) {
+                packs.at(pos).soldSeats = stoi(str);
+                break;
+            }
+        }
+    }
+
+    cout << "\\_" << endl;
+}
+
+int deletePack(vector<Pack> &packs, int id) {
+    int pos = findPacks(packs, id);
+    if (pos == -1) {
+        cerr << "Pacote não encontrado!";
+        return -1;
+    }
+
+    packsModify = true;
+
+    packs.erase(packs.begin()+pos);
+    cout << "Pacote " << id << " apagado";
+}
+
+
+//
 // Main menu functions
+//
 void mainMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void clientsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
 void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs);
@@ -781,7 +1079,10 @@ void mainMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     mainMenuSelect(agency, clients, packs);
 }
 
+
+//
 // Clients menu functions
+//
 void clientsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     string str = "";
     int opt;
@@ -791,23 +1092,54 @@ void clientsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &pa
         getOption(opt);
         valid = true;
         switch (opt) {
-            case 0:
+            case 0: {
                 mainMenu(agency, clients, packs);
                 break;
-            case 1:
+            }
+            case 1: {
                 showClientVect(clients);
                 cout << endl << "ENTER para voltar atrás";
                 getline(cin, str);
                 clientsMenu(agency, clients, packs);
                 break;
-            // TODO search for and edit client
-            case 3:
+            }
+            case 2: {
+                while (true) {
+                    cout << "NIF do cliente a editar: ";
+                    getline(cin, str);
+                    if (isNumeric(str) && str.length() == 9) {
+                        editClient(clients, str);
+                        break;
+                    }
+                    cinERR("ERRO: Introduza um NIF válido");
+                }
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                clientsMenu(agency, clients, packs);
+                break;
+            }
+            case 3: {
                 addClient(clients);
                 cout << endl << "ENTER para voltar atrás";
                 getline(cin, str);
                 clientsMenu(agency, clients, packs);
                 break;
-            // TODO delet client
+            }
+            case 4: {
+                while (true) {
+                    cout << "NIF do cliente a apagar: ";
+                    getline(cin, str);
+                    if (isNumeric(str) && str.length() == 9) {
+                        deleteClient(clients, str);
+                        break;
+                    }
+                    cinERR("ERRO: Introduza um NIF válido");
+                }
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                clientsMenu(agency, clients, packs);
+                break;
+            }
             default:
                 valid = false;
                 cinERR("ERRO: Opção inválida, tente outra vez");
@@ -830,7 +1162,10 @@ void clientsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     clientsMenuSelect(agency, clients, packs);
 }
 
+
+//
 // Packs menu functions
+//
 void packsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     string str;
     int opt;
@@ -844,26 +1179,48 @@ void packsMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &pack
                 mainMenu(agency, clients, packs);
                 break;
             case 1:
-                showPackVect(packs);
+                viewPacksMenu(agency, clients, packs);
+                break;
+            case 2:
+                while (true) {
+                    cout << "ID de pacote a editar: ";
+                    getline(cin, str);
+                    if (isNumeric(str)) {
+                        editPack(packs, stoi(str));
+                        break;
+                    }
+                    cinERR("ERRO: Introduza um ID válido");
+                }
                 cout << endl << "ENTER para voltar atrás";
                 getline(cin, str);
                 packsMenu(agency, clients, packs);
                 break;
-            // TODO search for and edit packs
             case 3:
                 addPack(packs);
                 cout << endl << "ENTER para voltar atrás";
                 getline(cin, str);
                 packsMenu(agency, clients, packs);
                 break;
-            // TODO delet pack
+            case 4:
+                while (true) {
+                    cout << "ID de pacote a apagar: ";
+                    getline(cin, str);
+                    if (isNumeric(str)) {
+                        deletePack(packs, stoi(str));
+                        break;
+                    }
+                    cinERR("ERRO: Introduza um ID válido");
+                }
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                packsMenu(agency, clients, packs);
+                break;
             default:
                 valid = false;
                 cinERR("ERRO: Opção inválida, tente outra vez");
                 break;
         }
     } while (!valid);
-
 }
 
 void packsMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
@@ -889,23 +1246,104 @@ void viewPacksMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &
         getOption(opt);
         valid = true;
         switch (opt) {
-            case 0:
+            case 0: {
                 packsMenu(agency, clients, packs);
                 break;
-//            case 1:
-//                showPackVect(packs);
-//                cout << endl << "ENTER para voltar atrás";
-//                getline(cin, str);
-//                packsMenu(agency, clients, packs);
-//                break;
-//                // TODO See packs constrained
-//            case 3:
-//                addPack(packs);
-//                cout << endl << "ENTER para voltar atrás";
-//                getline(cin, str);
-//                packsMenu(agency, clients, packs);
-//                break;
-//
+            }
+            case 1: {// Show all packs
+                showPackVect(packs);
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                viewPacksMenu(agency, clients, packs);
+                break;
+            }
+            case 2: {// Show packs by destination
+                string dest, message;
+                vector<int> selected;
+                cout << "Destino: ";
+                getline(cin, dest);
+                message = "Pacotes com o destino " + dest;
+                selected = findPacks(packs, dest);
+                if (!selected.empty())
+                    showPackVect(packs, selected, message);
+                else
+                    cout << "Nenhum pacote com o destino " << dest;
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                viewPacksMenu(agency, clients, packs);
+                break;
+            }
+            case 3: {// Show packs by date
+                Date date_1, date_2;
+                while (!date_1.valid) {
+                    cout << "Data de início: ";
+                    getline(cin, date_1.full);
+                    extractDate(date_1);
+                }
+                while (!date_2.valid) {
+                    cout << "Data de início: ";
+                    getline(cin, date_2.full);
+                    extractDate(date_2);
+                }
+                string message;
+                vector<int> selected;
+                message = "Pacotes entre as datas " + date_1.full + " e " + date_2.full;
+                selected = findPacks(packs, date_1, date_2);
+                if (!selected.empty())
+                    showPackVect(packs, selected, message);
+                else
+                    cout << "Nenhum pacote entre as datas " << date_1.full << " e " << date_2.full;
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                viewPacksMenu(agency, clients, packs);
+                break;
+            }
+            case 4: {// Show packs by destination
+                string dest, message;
+                Date date_1, date_2;
+                vector<int> selected;
+                cout << "Destino: ";
+                getline(cin, dest);
+                while (!date_1.valid) {
+                    cout << "Data de início: ";
+                    getline(cin, date_1.full);
+                    extractDate(date_1);
+                }
+                while (!date_2.valid) {
+                    cout << "Data de início: ";
+                    getline(cin, date_2.full);
+                    extractDate(date_2);
+                }
+                message = "Pacotes com o destino " + dest + " entre as datas " + date_1.full + " e " + date_2.full;
+                selected = findPacks(packs, dest, date_1, date_2);
+                if (!selected.empty())
+                    showPackVect(packs, selected, message);
+                else
+                    cout << "Nenhum pacote com o destino " << dest << " entre as datas " << date_1.full << " e " << date_2.full;
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                viewPacksMenu(agency, clients, packs);
+                break;
+            }
+            case 5: {
+                while (true) {
+                    cout << "ID de pacote a pesquisar: ";
+                    getline(cin, str);
+                    if (isNumeric(str)) {
+                        int pos = findPacks(packs, stoi(str));
+                        if (pos != -1)
+                            showPack(packs, pos);
+                        else
+                            cout << "Pacote não encontrado!";
+                        break;
+                    }
+                    cinERR("ERRO: Introduza um ID válido");
+                }
+                cout << endl << "ENTER para voltar atrás";
+                getline(cin, str);
+                viewPacksMenu(agency, clients, packs);
+                break;
+            }
             default:
                 valid = false;
                 cinERR("ERRO: Opção inválida, tente outra vez");
@@ -922,13 +1360,17 @@ void viewPacksMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs)
     cout << setw(4) << left << '|' << "2. Por destino" << endl;
     cout << setw(4) << left << '|' << "3. Por data" << endl;
     cout << setw(4) << left << '|' << "4. Por destino/data" << endl;
+    cout << setw(4) << left << '|' << "5. Por ID" << endl;
     cout << endl << setw(4) << left << '|' << "0. Voltar atrás" << endl;
     line(35);
 
-    viewPacksMenu(agency, clients, packs);
+    viewPacksMenuSelect(agency, clients, packs);
 }
 
+
+//
 // Agency menu functions
+//
 void agencyMenuSelect(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     string str;
     int opt;
@@ -974,6 +1416,8 @@ void agencyMenu(Agency &agency, vector<Client> &clients, vector<Pack> &packs) {
     agencyMenuSelect(agency, clients, packs);
 }
 
+
+
 int main() {
     // Initialize variables
     Agency agency;
@@ -984,24 +1428,19 @@ int main() {
     openAgency(agency);
     readClients(clients, agency.clientsFileName);
     readPacks(packs, agency.packsFileName);
-//
-//    // Menu
-//    cout << "* NiceHolidays GEST v1.0 BETA *" << endl;
-//    mainMenu(agency, clients, packs);
-//
-//    // Testing area
-//    if (agencyModify && save)
-//        writeAgency(agency, "agency.txt");
-//    if (clientsModify && save)
-//        writeClients(clients, agency.clientsFileName);
-//    if (packsModify && save)
-//        writePacks(packs, agency.packsFileName);
-    Date date1, date2;
-    date1.full = "01/03/2019";
-    date2.full = "31/08/2019";
-    extractDate(date1);
-    extractDate(date2);
-    vector<int> test = findPacks(packs, date1, date2);
-    showIntVect(test);
+
+    // Menu
+    cout << "* NiceHolidays GEST v1.0 BETA *" << endl;
+    mainMenu(agency, clients, packs);
+
+    // Testing area
+    if (agencyModify && save)
+        writeAgency(agency, "agency.txt");
+    if (clientsModify && save)
+        writeClients(clients, agency.clientsFileName);
+    if (packsModify && save)
+        writePacks(packs, agency.packsFileName);
+
+
     return 0;
 }
